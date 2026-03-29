@@ -258,20 +258,6 @@
             letter-spacing: 1px;
         }
 
-        .auto-load-info {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: var(--radius);
-            padding: 12px;
-            margin-top: 16px;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .auto-load-info strong {
-            color: var(--primary);
-        }
-
         /* === MAIN APP LAYOUT === */
         #app-container {
             display: none;
@@ -564,7 +550,7 @@
             transform: translateY(-2px);
         }
 
-        /* Video Section */
+        /* Video Player Container */
         .video-section {
             width: 100%;
             background: #000;
@@ -1622,30 +1608,6 @@
             background: var(--text-muted);
         }
 
-        /* Fullscreen Styles */
-        .video-container:fullscreen {
-            width: 100vw;
-            height: 100vh;
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .video-container:fullscreen .video-wrapper {
-            padding-top: 0;
-            height: 100%;
-            max-height: none;
-        }
-
-        .video-container:fullscreen video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .video-container:fullscreen .video-controls-bar {
-            opacity: 1;
-        }
-
         /* Responsive */
         @media (max-width: 1100px) {
             :root {
@@ -1767,10 +1729,6 @@
                         <span id="file-name-display">📁 Cliquez pour importer (.json ou .enc)</span>
                         <input type="file" id="lib-file" accept=".json,.enc" style="display: none" onchange="handleFileSelect(this)">
                     </div>
-                </div>
-
-                <div class="auto-load-info">
-                    <strong>💾 Sauvegarde automatique :</strong> Votre bibliothèque est automatiquement sauvegardée dans le navigateur. Vos musiques resteront disponibles même après actualisation.
                 </div>
             </div>
         </div>
@@ -2103,10 +2061,6 @@
                             <span class="settings-option-label">Export JSON</span>
                             <button class="btn-secondary" style="width: auto; padding: 6px 12px; margin: 0;" onclick="exportLibrary(false)">.json</button>
                         </div>
-                        <div class="settings-option">
-                            <span class="settings-option-label">Sauvegarde auto</span>
-                            <div class="toggle-switch active" id="toggle-autosave"></div>
-                        </div>
                     </div>
                 </div>
 
@@ -2261,7 +2215,6 @@
         const DB_VERSION = 1;
         const STORE_NAME = 'mediaFiles';
         const PLAYLIST_STORE = 'playlists';
-        const SETTINGS_STORE = 'settings';
 
         // === STATE MANAGEMENT ===
         let library = [];
@@ -2283,7 +2236,6 @@
         let queue = [];
         let db = null;
         let contextTrackIndex = -1;
-        let autoSaveEnabled = true;
 
         // EQ Frequencies
         const EQ_FREQUENCIES = [32, 64, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
@@ -2329,9 +2281,6 @@
                     }
                     if (!db.objectStoreNames.contains(PLAYLIST_STORE)) {
                         db.createObjectStore(PLAYLIST_STORE, { keyPath: 'id' });
-                    }
-                    if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
-                        db.createObjectStore(SETTINGS_STORE, { keyPath: 'key' });
                     }
                 };
 
@@ -2501,48 +2450,6 @@
             });
         }
 
-        function saveSettingsToDB(key, value) {
-            return new Promise((resolve, reject) => {
-                if (!db) {
-                    reject('Database not initialized');
-                    return;
-                }
-
-                const transaction = db.transaction([SETTINGS_STORE], 'readwrite');
-                const store = transaction.objectStore(SETTINGS_STORE);
-                const request = store.put({ key, value });
-
-                request.onsuccess = function() {
-                    resolve();
-                };
-
-                request.onerror = function() {
-                    reject('Error saving settings');
-                };
-            });
-        }
-
-        function getSettingsFromDB(key) {
-            return new Promise((resolve, reject) => {
-                if (!db) {
-                    reject('Database not initialized');
-                    return;
-                }
-
-                const transaction = db.transaction([SETTINGS_STORE], 'readonly');
-                const store = transaction.objectStore(SETTINGS_STORE);
-                const request = store.get(key);
-
-                request.onsuccess = function() {
-                    resolve(request.result ? request.result.value : null);
-                };
-
-                request.onerror = function() {
-                    reject('Error getting settings');
-                };
-            });
-        }
-
         function getStorageUsage() {
             if ('storage' in navigator && 'estimate' in navigator.storage) {
                 navigator.storage.estimate().then(estimate => {
@@ -2638,14 +2545,6 @@
                 key: userKey
             };
 
-            // Save current user to localStorage for auto-login
-            localStorage.setItem('zenkari_current_user', JSON.stringify(currentUser));
-
-            // Try to load existing library from IndexedDB first
-            await loadFilesFromDB();
-            await loadPlaylistsFromDB();
-            await loadSettingsFromDB();
-
             if (file) {
                 const reader = new FileReader();
                 reader.onload = async function(e) {
@@ -2677,23 +2576,21 @@
                             playlists = data.playlists;
                             await savePlaylistsToDB();
                         }
-                        await saveLibraryToDB();
+                        await loadFilesFromDB();
                         initializeApp();
                     } else if (Array.isArray(data)) {
                         library = data;
-                        await saveLibraryToDB();
+                        await loadFilesFromDB();
                         initializeApp();
                     } else {
-                        initializeApp();
+                        alert("Format de données invalide.");
                     }
                 };
                 reader.readAsText(file);
             } else {
-                // Check if there's existing data in IndexedDB
-                const existingLibrary = await getSettingsFromDB('library');
-                if (existingLibrary) {
-                    library = existingLibrary;
-                }
+                library = [];
+                await loadFilesFromDB();
+                await loadPlaylistsFromDB();
                 initializeApp();
             }
         }
@@ -2701,38 +2598,16 @@
         async function loadFilesFromDB() {
             try {
                 const records = await getAllFilesFromDB();
-                library = [];
                 records.forEach(record => {
-                    library.push({
-                        id: record.id,
-                        title: record.metadata.title,
-                        artist: record.metadata.artist,
-                        album: record.metadata.album,
-                        type: record.metadata.type,
-                        duration: record.metadata.duration,
-                        url: URL.createObjectURL(record.file),
-                        file: record.file
-                    });
+                    const trackIndex = library.findIndex(t => t.id === record.id);
+                    if (trackIndex !== -1) {
+                        library[trackIndex].url = URL.createObjectURL(record.file);
+                        library[trackIndex].file = record.file;
+                    }
                 });
                 getStorageUsage();
             } catch (e) {
                 console.error('Error loading files from DB:', e);
-            }
-        }
-
-        async function saveLibraryToDB() {
-            if (!autoSaveEnabled) return;
-            try {
-                await saveSettingsToDB('library', library.map(t => ({
-                    id: t.id,
-                    title: t.title,
-                    artist: t.artist,
-                    album: t.album,
-                    type: t.type,
-                    duration: t.duration
-                })));
-            } catch (e) {
-                console.error('Error saving library:', e);
             }
         }
 
@@ -2745,25 +2620,6 @@
             }
         }
 
-        async function loadSettingsFromDB() {
-            try {
-                const savedEq = await getSettingsFromDB('eqValues');
-                if (savedEq) {
-                    eqValues = savedEq;
-                }
-                const savedShuffle = await getSettingsFromDB('isShuffle');
-                if (savedShuffle !== null) {
-                    isShuffle = savedShuffle;
-                }
-                const savedLoop = await getSettingsFromDB('isLoop');
-                if (savedLoop !== null) {
-                    isLoop = savedLoop;
-                }
-            } catch (e) {
-                console.error('Error loading settings:', e);
-            }
-        }
-
         async function savePlaylistsToDB() {
             try {
                 for (const playlist of playlists) {
@@ -2771,21 +2627,6 @@
                 }
             } catch (e) {
                 console.error('Error saving playlists:', e);
-            }
-        }
-
-        // Check for auto-login on page load
-        async function checkAutoLogin() {
-            const savedUser = localStorage.getItem('zenkari_current_user');
-            if (savedUser) {
-                try {
-                    currentUser = JSON.parse(savedUser);
-                    document.getElementById('login-username').value = currentUser.username;
-                    // Auto-attempt login with saved user
-                    // User still needs to enter password for security
-                } catch (e) {
-                    localStorage.removeItem('zenkari_current_user');
-                }
             }
         }
 
@@ -2851,8 +2692,6 @@
                 key: userKey
             };
 
-            localStorage.setItem('zenkari_current_user', JSON.stringify(currentUser));
-
             library = [];
             playlists = [];
 
@@ -2898,12 +2737,6 @@
             setupVideoListeners();
             initEqualizer();
             getStorageUsage();
-
-            // Update UI based on loaded settings
-            document.getElementById('btn-shuffle').classList.toggle('active', isShuffle);
-            document.getElementById('btn-loop').classList.toggle('active', isLoop);
-            document.getElementById('toggle-shuffle').classList.toggle('active', isShuffle);
-            document.getElementById('toggle-loop').classList.toggle('active', isLoop);
         }
 
         function logout() {
@@ -2912,8 +2745,6 @@
             playlists = [];
             currentTrackIndex = -1;
             isPlaying = false;
-
-            localStorage.removeItem('zenkari_current_user');
 
             document.getElementById('login-username').value = '';
             document.getElementById('login-pass').value = '';
@@ -3077,7 +2908,6 @@
             document.getElementById('btn-loop').classList.toggle('active', isLoop);
             document.getElementById('loop-status').textContent = isLoop ? 'On' : 'Off';
             document.getElementById('toggle-loop').classList.toggle('active', isLoop);
-            saveSettingsToDB('isLoop', isLoop);
         }
 
         function toggleShuffle() {
@@ -3085,7 +2915,6 @@
             document.getElementById('btn-shuffle').classList.toggle('active', isShuffle);
             document.getElementById('shuffle-status').textContent = isShuffle ? 'On' : 'Off';
             document.getElementById('toggle-shuffle').classList.toggle('active', isShuffle);
-            saveSettingsToDB('isShuffle', isShuffle);
         }
 
         function togglePlaybackSpeed() {
@@ -3099,42 +2928,14 @@
         // === VIDEO FULLSCREEN FUNCTION ===
         function toggleVideoFullscreen() {
             if (!document.fullscreenElement) {
-                if (videoContainer.requestFullscreen) {
-                    videoContainer.requestFullscreen().catch(err => {
-                        console.log('Fullscreen error:', err);
-                    });
-                } else if (videoContainer.webkitRequestFullscreen) {
-                    videoContainer.webkitRequestFullscreen();
-                } else if (videoContainer.mozRequestFullScreen) {
-                    videoContainer.mozRequestFullScreen();
-                } else if (videoContainer.msRequestFullscreen) {
-                    videoContainer.msRequestFullscreen();
-                }
+                videoContainer.requestFullscreen().catch(err => {
+                    console.log('Fullscreen error:', err);
+                });
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
+                document.exitFullscreen();
             }
             toggleSettingsMenu();
         }
-
-        // Listen for fullscreen changes
-        document.addEventListener('fullscreenchange', () => {
-            const btn = document.querySelector('.fullscreen-btn');
-            if (btn) {
-                if (document.fullscreenElement) {
-                    btn.innerHTML = '⛶ Quitter';
-                } else {
-                    btn.innerHTML = '⛶ Plein écran';
-                }
-            }
-        });
 
         function toggleSettingsMenu() {
             document.getElementById('video-settings').classList.toggle('active');
@@ -3239,7 +3040,6 @@
             });
 
             applyEqualizer();
-            saveSettingsToDB('eqValues', eqValues);
 
             document.querySelectorAll('.eq-preset-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -3529,7 +3329,6 @@
                 savePlaylistToDB(playlist);
             });
 
-            await saveLibraryToDB();
             renderLibrary();
             renderPlaylistList();
             getStorageUsage();
@@ -3675,7 +3474,6 @@
             statusMsg.className = 'status-msg status-success';
             setTimeout(() => statusMsg.remove(), 3000);
 
-            await saveLibraryToDB();
             renderLibrary();
             getStorageUsage();
         }
@@ -3849,10 +3647,6 @@
             if (e.code === 'KeyF') toggleVideoFullscreen();
             if (e.code === 'KeyM') toggleMute();
         });
-
-        // Initialize on page load
-        checkAutoLogin();
     </script>
 </body>
 </html>
-
