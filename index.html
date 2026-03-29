@@ -34,6 +34,8 @@
             color: var(--text-main);
             height: 100vh;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- LOGIN SCREEN --- */
@@ -48,6 +50,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
 
         .login-card {
@@ -58,6 +61,7 @@
             width: 100%;
             max-width: 450px;
             text-align: center;
+            box-shadow: var(--shadow);
         }
 
         .login-logo {
@@ -72,6 +76,7 @@
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .login-sub {
@@ -101,6 +106,7 @@
             border-radius: var(--radius);
             color: var(--text-main);
             font-size: 14px;
+            transition: border-color 0.2s;
         }
 
         .zen-input:focus {
@@ -117,6 +123,7 @@
             border-radius: var(--radius);
             font-weight: 600;
             cursor: pointer;
+            transition: background 0.2s;
             font-size: 14px;
         }
 
@@ -133,6 +140,7 @@
             border-radius: var(--radius);
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
             font-size: 14px;
             margin-top: 10px;
         }
@@ -141,14 +149,22 @@
             background: var(--border);
         }
 
-        .btn-link {
-            background: none;
+        .btn-success {
+            width: 100%;
+            padding: 12px;
+            background: var(--success);
+            color: white;
             border: none;
-            color: var(--primary);
+            border-radius: var(--radius);
+            font-weight: 600;
             cursor: pointer;
-            font-size: 13px;
-            text-decoration: underline;
-            margin-top: 15px;
+            transition: all 0.2s;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn-success:hover {
+            background: #16a34a;
         }
 
         .file-drop-area {
@@ -157,21 +173,45 @@
             padding: 20px;
             margin-top: 20px;
             cursor: pointer;
+            transition: all 0.2s;
             background: rgba(255,255,255,0.02);
         }
 
         .file-drop-area:hover {
             border-color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
         }
 
-        /* --- MAIN APP --- */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider span {
+            padding: 0 15px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* --- MAIN APP LAYOUT --- */
         #app-container {
-            display: none;
+            display: none; 
             height: 100vh;
+            display: grid;
             grid-template-columns: 260px 1fr;
             grid-template-rows: 1fr 90px;
         }
 
+        /* Sidebar */
         .sidebar {
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border);
@@ -193,11 +233,34 @@
             width: 80px;
             height: 80px;
             border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
         }
 
         .brand-text {
             font-size: 18px;
             font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .user-info {
+            background: var(--bg-hover);
+            padding: 12px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .user-email {
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         .nav-section {
@@ -211,6 +274,8 @@
             text-transform: uppercase;
             color: var(--text-muted);
             font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
             padding-left: 12px;
         }
 
@@ -220,6 +285,7 @@
             color: var(--text-muted);
             font-size: 14px;
             cursor: pointer;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -233,11 +299,14 @@
         .nav-item.active {
             background: var(--bg-hover);
             color: var(--primary);
+            font-weight: 500;
         }
 
+        /* Main Content */
         .main-view {
             background: var(--bg-app);
             overflow-y: auto;
+            position: relative;
         }
 
         .top-bar {
@@ -263,6 +332,11 @@
             font-size: 13px;
         }
 
+        .user-actions {
+            display: flex;
+            gap: 12px;
+        }
+
         .btn-icon {
             background: var(--bg-sidebar);
             border: 1px solid var(--border);
@@ -271,12 +345,18 @@
             height: 36px;
             border-radius: 50%;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
 
         .btn-icon:hover {
             background: var(--bg-hover);
+            border-color: var(--text-muted);
         }
 
+        /* Video Player Area */
         .video-stage {
             width: 100%;
             height: 400px;
@@ -284,6 +364,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
             border-bottom: 1px solid var(--border);
         }
 
@@ -301,6 +383,7 @@
             gap: 10px;
         }
 
+        /* Playlist Table */
         .playlist-header {
             padding: 20px 30px;
             display: grid;
@@ -323,6 +406,7 @@
             align-items: center;
             cursor: pointer;
             color: var(--text-muted);
+            transition: background 0.1s;
         }
 
         .track-row:hover {
@@ -337,7 +421,7 @@
         .track-row.playing .track-num {
             display: none;
         }
-
+        
         .track-row.playing .track-icon {
             display: block;
         }
@@ -363,6 +447,7 @@
             font-size: 12px;
         }
 
+        /* Player Bar */
         .player-bar {
             grid-column: 1 / -1;
             background: var(--bg-player);
@@ -389,6 +474,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-muted);
+            font-size: 20px;
         }
 
         .now-playing-info {
@@ -400,6 +487,7 @@
         .np-title {
             font-size: 13px;
             font-weight: 600;
+            color: var(--text-main);
         }
 
         .np-artist {
@@ -427,6 +515,7 @@
             color: var(--text-muted);
             cursor: pointer;
             font-size: 16px;
+            transition: color 0.2s;
         }
 
         .ctrl-btn:hover {
@@ -445,6 +534,11 @@
             font-size: 14px;
         }
 
+        .ctrl-btn.play-pause:hover {
+            transform: scale(1.05);
+            color: var(--bg-app);
+        }
+
         .progress-container {
             width: 100%;
             display: flex;
@@ -460,6 +554,7 @@
             background: var(--bg-hover);
             border-radius: 2px;
             cursor: pointer;
+            position: relative;
         }
 
         .progress-bar-fill {
@@ -467,6 +562,11 @@
             background: var(--text-main);
             border-radius: 2px;
             width: 0%;
+            position: relative;
+        }
+
+        .progress-bar-bg:hover .progress-bar-fill {
+            background: var(--primary);
         }
 
         .player-right {
@@ -483,6 +583,7 @@
             -webkit-appearance: none;
             background: var(--bg-hover);
             border-radius: 2px;
+            outline: none;
         }
 
         .volume-slider::-webkit-slider-thumb {
@@ -515,6 +616,7 @@
             border-radius: 12px;
             width: 500px;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .modal-header {
@@ -534,20 +636,23 @@
             margin-bottom: 20px;
         }
 
+        .hidden { display: none; }
+        
         .status-msg {
             font-size: 12px;
             margin-top: 10px;
             text-align: center;
         }
-
         .status-success { color: var(--success); }
         .status-error { color: var(--danger); }
 
+        /* Password strength indicator */
         .password-strength {
             height: 4px;
             background: var(--bg-hover);
             border-radius: 2px;
             margin-top: 8px;
+            overflow: hidden;
         }
 
         .password-strength-bar {
@@ -559,6 +664,7 @@
         .strength-weak { background: var(--danger); width: 33%; }
         .strength-medium { background: #f59e0b; width: 66%; }
         .strength-strong { background: var(--success); width: 100%; }
+
     </style>
 </head>
 <body>
@@ -580,46 +686,61 @@
                 <input type="password" id="login-pass" class="zen-input" placeholder="••••••">
             </div>
 
-            <button class="btn-primary" id="btn-login" onclick="attemptLogin()">Connexion</button>
-            <button class="btn-link" id="btn-create-account" onclick="openRegisterModal()">Créer un compte</button>
+            <button class="btn-primary" onclick="attemptLogin()">Se Connecter</button>
             
-            <div style="margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;">
-                <div class="input-group">
-                    <label class="input-label">Bibliothèque (.json ou .enc)</label>
-                    <div class="file-drop-area" id="file-drop" onclick="document.getElementById('lib-file').click()">
-                        <span id="file-name-display">Importer un fichier</span>
-                        <input type="file" id="lib-file" accept=".json,.enc" onchange="handleFileSelect(this)">
-                    </div>
+            <div class="divider">
+                <span>OU</span>
+            </div>
+
+            <button class="btn-success" onclick="openCreateAccount()">Créer un Compte</button>
+
+            <div class="input-group" style="margin-top: 25px;">
+                <label class="input-label">Importer une bibliothèque existante</label>
+                <div class="file-drop-area" onclick="document.getElementById('lib-file').click()">
+                    <span id="file-name-display">Cliquez pour importer (.json ou .enc)</span>
+                    <input type="file" id="lib-file" accept=".json,.enc" style="display: none" onchange="handleFileSelect(this)">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- REGISTER MODAL -->
-    <div class="modal-overlay" id="register-modal">
+    <!-- CREATE ACCOUNT MODAL -->
+    <div class="modal-overlay" id="create-account-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Créer un compte</span>
-                <span class="close-modal" onclick="closeRegisterModal()">✕</span>
+                <span>Créer un Nouveau Compte</span>
+                <span class="close-modal" onclick="closeModal('create-account-modal')">✕</span>
             </div>
             <div class="modal-body">
                 <div class="input-group">
                     <label class="input-label">Nom d'utilisateur</label>
-                    <input type="text" id="reg-username" class="zen-input" placeholder="Nom d'utilisateur">
+                    <input type="text" id="new-username" class="zen-input" placeholder="Choisissez un nom">
                 </div>
+
+                <div class="input-group">
+                    <label class="input-label">Email</label>
+                    <input type="email" id="new-email" class="zen-input" placeholder="votre@email.com">
+                </div>
+
                 <div class="input-group">
                     <label class="input-label">Mot de passe</label>
-                    <input type="password" id="reg-pass" class="zen-input" placeholder="••••••" oninput="checkPasswordStrength()">
+                    <input type="password" id="new-password" class="zen-input" placeholder="••••••••" oninput="checkPasswordStrength(this.value)">
                     <div class="password-strength">
-                        <div class="password-strength-bar" id="pass-strength-bar"></div>
+                        <div class="password-strength-bar" id="password-strength-bar"></div>
                     </div>
                 </div>
+
                 <div class="input-group">
                     <label class="input-label">Confirmer le mot de passe</label>
-                    <input type="password" id="reg-pass-confirm" class="zen-input" placeholder="••••••">
+                    <input type="password" id="confirm-password" class="zen-input" placeholder="••••••••">
                 </div>
-                <button class="btn-primary" id="btn-register" onclick="registerAccount()">Créer le compte</button>
-                <div id="reg-status" class="status-msg"></div>
+
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 15px;">
+                    Un fichier de bibliothèque crypté sera généré pour votre compte. Vous pourrez l'exporter et le sauvegarder en toute sécurité.
+                </p>
+
+                <button class="btn-success" onclick="createAccount()">Créer le Compte</button>
+                <div id="create-status" class="status-msg"></div>
             </div>
         </div>
     </div>
@@ -633,25 +754,30 @@
                 <div class="brand-text">ZENKARI</div>
             </div>
 
+            <div class="user-info">
+                <div class="user-name" id="sidebar-username">Utilisateur</div>
+                <div class="user-email" id="sidebar-email">user@zenkari.com</div>
+            </div>
+
             <div class="nav-section">
                 <div class="nav-title">Menu</div>
-                <div class="nav-item active" id="nav-library" onclick="switchView('library')">
+                <div class="nav-item active" onclick="switchView('library')">
                     <span>📚</span> Bibliothèque
                 </div>
-                <div class="nav-item" id="nav-favorites" onclick="switchView('favorites')">
+                <div class="nav-item" onclick="switchView('favorites')">
                     <span>❤️</span> Favoris
                 </div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-title">Compte</div>
-                <div class="nav-item" id="user-display">
-                    <span>👤</span> <span id="username-display">Utilisateur</span>
-                </div>
-                <div class="nav-item" id="nav-settings" onclick="openSettings()">
+                <div class="nav-title">Système</div>
+                <div class="nav-item" onclick="openSettings()">
                     <span>⚙️</span> Paramètres
                 </div>
-                <div class="nav-item" id="nav-logout" onclick="logout()">
+                <div class="nav-item" onclick="openAccountSettings()">
+                    <span>👤</span> Mon Compte
+                </div>
+                <div class="nav-item" style="color: var(--danger)" onclick="logout()">
                     <span>🚪</span> Déconnexion
                 </div>
             </div>
@@ -660,28 +786,32 @@
         <!-- Main View -->
         <div class="main-view">
             <div class="top-bar">
-                <input type="text" class="search-bar" id="search-input" placeholder="Rechercher..." oninput="filterTracks(this.value)">
+                <input type="text" class="search-bar" placeholder="Rechercher un titre, un artiste..." oninput="filterTracks(this.value)">
                 <div class="user-actions">
-                    <button class="btn-icon" id="btn-add-files" onclick="document.getElementById('add-files').click()">+</button>
-                    <input type="file" id="add-files" multiple accept="audio/*,video/*" onchange="addLocalFiles(this.files)">
+                    <button class="btn-icon" onclick="document.getElementById('add-files').click()" title="Ajouter des fichiers locaux">+</button>
+                    <input type="file" id="add-files" multiple accept="audio/*,video/*" style="display: none" onchange="addLocalFiles(this.files)">
                 </div>
             </div>
 
+            <!-- Video Stage -->
             <div class="video-stage" id="video-stage">
-                <video id="main-video"></video>
+                <video id="main-video" playsinline></video>
                 <div class="video-placeholder" id="video-placeholder">
                     <span style="font-size: 40px; opacity: 0.2;">▶</span>
-                    <span>Lecteur Prêt</span>
+                    <span>Lecteur Vidéo Prêt</span>
                 </div>
             </div>
 
+            <!-- Playlist -->
             <div class="playlist-header">
                 <div>#</div>
                 <div>TITRE</div>
                 <div>ALBUM</div>
                 <div>DURÉE</div>
             </div>
-            <div class="track-list" id="track-list-container"></div>
+            <div class="track-list" id="track-list-container">
+                <!-- Tracks injected here -->
+            </div>
         </div>
 
         <!-- Player Bar -->
@@ -692,18 +822,18 @@
                     <div class="np-title" id="np-title">Aucune lecture</div>
                     <div class="np-artist" id="np-artist">--</div>
                 </div>
-                <button class="btn-icon" id="btn-like" style="width: 24px; height: 24px;" onclick="toggleLike()">♥</button>
+                <button class="btn-icon" style="width: 24px; height: 24px; font-size: 12px;" onclick="toggleLike()">♥</button>
             </div>
 
             <div class="player-center">
                 <div class="player-controls">
-                    <button class="ctrl-btn" id="btn-prev" onclick="prevTrack()">⏮</button>
-                    <button class="ctrl-btn play-pause" id="btn-play" onclick="togglePlay()">▶</button>
-                    <button class="ctrl-btn" id="btn-next" onclick="nextTrack()">⏭</button>
+                    <button class="ctrl-btn" onclick="prevTrack()">⏮</button>
+                    <button class="ctrl-btn play-pause" id="play-btn" onclick="togglePlay()">▶</button>
+                    <button class="ctrl-btn" onclick="nextTrack()">⏭</button>
                 </div>
                 <div class="progress-container">
                     <span id="curr-time">0:00</span>
-                    <div class="progress-bar-bg" id="progress-bar" onclick="seek(event)">
+                    <div class="progress-bar-bg" onclick="seek(event)">
                         <div class="progress-bar-fill" id="progress-fill"></div>
                     </div>
                     <span id="total-time">0:00</span>
@@ -711,8 +841,8 @@
             </div>
 
             <div class="player-right">
-                <span>🔊</span>
-                <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)">
+                <span style="font-size: 12px; color: var(--text-muted);">🔊</span>
+                <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)">
             </div>
         </div>
     </div>
@@ -722,33 +852,69 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span>Gestion des Données</span>
-                <span class="close-modal" onclick="closeModal()">✕</span>
+                <span class="close-modal" onclick="closeModal('settings-modal')">✕</span>
             </div>
             <div class="modal-body">
                 <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
-                    Exportez votre bibliothèque.
+                    Exportez votre bibliothèque. Le format crypté (.enc) protège vos données contre la lecture humaine.
                 </p>
-                <button class="btn-primary" id="btn-export-enc" onclick="exportLibrary(true)">💾 JSON Crypté (.enc)</button>
-                <button class="btn-secondary" id="btn-export-json" onclick="exportLibrary(false)">📄 JSON Standard (.json)</button>
+                
+                <button class="btn-primary" onclick="exportLibrary(true)">💾 Créer JSON Crypté (.enc)</button>
+                <button class="btn-secondary" onclick="exportLibrary(false)">📄 Créer JSON Standard (.json)</button>
+                
                 <div id="save-status" class="status-msg"></div>
             </div>
         </div>
     </div>
 
+    <!-- Account Settings Modal -->
+    <div class="modal-overlay" id="account-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Mon Compte</span>
+                <span class="close-modal" onclick="closeModal('account-modal')">✕</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label class="input-label">Nom d'utilisateur</label>
+                    <input type="text" id="account-username" class="zen-input" readonly>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Email</label>
+                    <input type="email" id="account-email" class="zen-input" readonly>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Date de création</label>
+                    <input type="text" id="account-created" class="zen-input" readonly>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Titres dans la bibliothèque</label>
+                    <input type="text" id="account-tracks" class="zen-input" readonly>
+                </div>
+                
+                <button class="btn-primary" onclick="exportLibrary(true)">📥 Exporter ma bibliothèque</button>
+                <div id="account-status" class="status-msg"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Global State
+        // --- CONFIGURATION ---
+        const ENCRYPTION_KEY = "ZenkariSecureKey2024";
+
+        // --- STATE MANAGEMENT ---
         let library = [];
         let currentTrackIndex = -1;
         let isPlaying = false;
-        let currentUser = null;
-        let userPassword = null;
+        let favorites = [];
         let audioContext = null;
         let sourceNode = null;
         let gainNode = null;
+        let currentUser = null;
 
-        // DOM Elements
+        // --- DOM ELEMENTS ---
         const videoEl = document.getElementById('main-video');
-        const playBtn = document.getElementById('btn-play');
+        const playBtn = document.getElementById('play-btn');
         const progressFill = document.getElementById('progress-fill');
         const currTimeEl = document.getElementById('curr-time');
         const totalTimeEl = document.getElementById('total-time');
@@ -756,139 +922,49 @@
         const npArtist = document.getElementById('np-artist');
         const videoPlaceholder = document.getElementById('video-placeholder');
 
-        // Crypto Functions
-        function encryptData(data, password) {
+        // --- CRYPTOGRAPHY FUNCTIONS ---
+        function encryptData(data, key) {
             const str = JSON.stringify(data);
             let result = '';
             for (let i = 0; i < str.length; i++) {
-                const charCode = str.charCodeAt(i) ^ password.charCodeAt(i % password.length);
+                const charCode = str.charCodeAt(i) ^ key.charCodeAt(i % key.length);
                 result += String.fromCharCode(charCode);
             }
             return btoa(result);
         }
 
-        function decryptData(encryptedBase64, password) {
+        function decryptData(encryptedBase64, key) {
             try {
                 const str = atob(encryptedBase64);
                 let result = '';
                 for (let i = 0; i < str.length; i++) {
-                    const charCode = str.charCodeAt(i) ^ password.charCodeAt(i % password.length);
+                    const charCode = str.charCodeAt(i) ^ key.charCodeAt(i % key.length);
                     result += String.fromCharCode(charCode);
                 }
                 return JSON.parse(result);
             } catch (e) {
+                console.error("Decryption failed", e);
                 return null;
             }
         }
 
-        // User Management
-        function getUsers() {
-            try {
-                const users = localStorage.getItem('zenkari_users');
-                return users ? JSON.parse(users) : {};
-            } catch (e) {
-                return {};
+        function hashPassword(password) {
+            // Simple hash for demo (use bcrypt in production)
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
             }
+            return hash.toString(16);
         }
 
-        function saveUser(username, passwordHash) {
-            const users = getUsers();
-            users[username] = { passwordHash, createdAt: new Date().toISOString() };
-            localStorage.setItem('zenkari_users', JSON.stringify(users));
+        function generateUserKey(username, password) {
+            // Generate unique encryption key based on user credentials
+            return hashPassword(username + password + ENCRYPTION_KEY);
         }
 
-        function getUser(username) {
-            const users = getUsers();
-            return users[username];
-        }
-
-        function saveUserLibrary(username, libraryData) {
-            localStorage.setItem('zenkari_library_' + username, JSON.stringify(libraryData));
-        }
-
-        function getUserLibrary(username) {
-            try {
-                const data = localStorage.getItem('zenkari_library_' + username);
-                return data ? JSON.parse(data) : [];
-            } catch (e) {
-                return [];
-            }
-        }
-
-        // Register Functions
-        function openRegisterModal() {
-            document.getElementById('register-modal').style.display = 'flex';
-        }
-
-        function closeRegisterModal() {
-            document.getElementById('register-modal').style.display = 'none';
-            document.getElementById('reg-status').textContent = '';
-            document.getElementById('reg-username').value = '';
-            document.getElementById('reg-pass').value = '';
-            document.getElementById('reg-pass-confirm').value = '';
-            document.getElementById('pass-strength-bar').className = 'password-strength-bar';
-        }
-
-        function checkPasswordStrength() {
-            const pass = document.getElementById('reg-pass').value;
-            const bar = document.getElementById('pass-strength-bar');
-            
-            let strength = 0;
-            if (pass.length >= 8) strength++;
-            if (/[A-Z]/.test(pass)) strength++;
-            if (/[0-9]/.test(pass)) strength++;
-            if (/[^A-Za-z0-9]/.test(pass)) strength++;
-
-            bar.className = 'password-strength-bar';
-            if (strength <= 1) bar.classList.add('strength-weak');
-            else if (strength <= 2) bar.classList.add('strength-medium');
-            else if (strength >= 3) bar.classList.add('strength-strong');
-        }
-
-        function registerAccount() {
-            const username = document.getElementById('reg-username').value.trim();
-            const pass = document.getElementById('reg-pass').value;
-            const passConfirm = document.getElementById('reg-pass-confirm').value;
-            const statusEl = document.getElementById('reg-status');
-
-            if (!username || !pass) {
-                statusEl.textContent = 'Veuillez remplir tous les champs';
-                statusEl.className = 'status-msg status-error';
-                return;
-            }
-
-            if (pass !== passConfirm) {
-                statusEl.textContent = 'Les mots de passe ne correspondent pas';
-                statusEl.className = 'status-msg status-error';
-                return;
-            }
-
-            if (pass.length < 6) {
-                statusEl.textContent = 'Le mot de passe doit contenir au moins 6 caractères';
-                statusEl.className = 'status-msg status-error';
-                return;
-            }
-
-            const users = getUsers();
-            if (users[username]) {
-                statusEl.textContent = 'Ce nom d\'utilisateur existe déjà';
-                statusEl.className = 'status-msg status-error';
-                return;
-            }
-
-            // Simple hash (not secure for production, but works for demo)
-            const passwordHash = btoa(pass);
-            saveUser(username, passwordHash);
-            
-            statusEl.textContent = 'Compte créé avec succès ! Connectez-vous maintenant.';
-            statusEl.className = 'status-msg status-success';
-            
-            setTimeout(() => {
-                closeRegisterModal();
-            }, 2000);
-        }
-
-        // Login Functions
+        // --- LOGIN LOGIC ---
         function handleFileSelect(input) {
             const file = input.files[0];
             if (file) {
@@ -899,100 +975,189 @@
 
         function attemptLogin() {
             const username = document.getElementById('login-username').value.trim();
-            const pass = document.getElementById('login-pass').value;
+            const password = document.getElementById('login-pass').value;
             const fileInput = document.getElementById('lib-file');
             const file = fileInput.files[0];
 
             if (!username) {
-                alert('Veuillez entrer un nom d\'utilisateur');
+                alert("Veuillez entrer un nom d'utilisateur");
                 return;
             }
 
-            const user = getUser(username);
-            
-            if (user) {
-                const passwordHash = btoa(pass);
-                if (passwordHash !== user.passwordHash) {
-                    alert('Mot de passe incorrect');
-                    return;
-                }
-                userPassword = pass;
-            } else {
-                const passwordHash = btoa(pass);
-                saveUser(username, passwordHash);
-                userPassword = pass;
-            }
-
-            currentUser = username;
-            document.getElementById('username-display').textContent = username;
+            // Generate user-specific encryption key
+            const userKey = generateUserKey(username, password);
+            currentUser = {
+                username: username,
+                email: username + "@zenkari.local",
+                created: new Date().toISOString(),
+                key: userKey
+            };
 
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const content = e.target.result;
                     let data = null;
-
                     const isEncrypted = file.name.endsWith('.enc');
 
                     if (isEncrypted) {
-                        data = decryptData(content, userPassword);
+                        data = decryptData(content, userKey);
                         if (!data) {
-                            alert('Erreur: Fichier crypté invalide');
+                            // Try with default key for backward compatibility
+                            data = decryptData(content, ENCRYPTION_KEY);
+                        }
+                        if (!data) {
+                            alert("Erreur: Fichier crypté invalide ou mot de passe incorrect.");
                             return;
                         }
                     } else {
                         try {
                             data = JSON.parse(content);
                         } catch (err) {
-                            alert('Erreur: Format JSON invalide');
+                            alert("Erreur: Format JSON invalide.");
                             return;
                         }
                     }
 
                     if (Array.isArray(data)) {
                         library = data;
-                        saveUserLibrary(username, library);
                         initializeApp();
+                    } else {
+                        alert("Format de données invalide.");
                     }
                 };
                 reader.readAsText(file);
             } else {
-                library = getUserLibrary(username) || [];
+                // New login without library file
+                library = [];
                 initializeApp();
             }
         }
 
+        // --- CREATE ACCOUNT ---
+        function openCreateAccount() {
+            document.getElementById('create-account-modal').style.display = 'flex';
+        }
+
+        function checkPasswordStrength(password) {
+            const bar = document.getElementById('password-strength-bar');
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            bar.className = 'password-strength-bar';
+            if (strength <= 1) bar.classList.add('strength-weak');
+            else if (strength <= 2) bar.classList.add('strength-medium');
+            else bar.classList.add('strength-strong');
+        }
+
+        function createAccount() {
+            const username = document.getElementById('new-username').value.trim();
+            const email = document.getElementById('new-email').value.trim();
+            const password = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const statusEl = document.getElementById('create-status');
+
+            if (!username || !email || !password) {
+                statusEl.textContent = "Veuillez remplir tous les champs";
+                statusEl.className = "status-msg status-error";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                statusEl.textContent = "Les mots de passe ne correspondent pas";
+                statusEl.className = "status-msg status-error";
+                return;
+            }
+
+            if (password.length < 6) {
+                statusEl.textContent = "Le mot de passe doit contenir au moins 6 caractères";
+                statusEl.className = "status-msg status-error";
+                return;
+            }
+
+            // Create user account
+            const userKey = generateUserKey(username, password);
+            currentUser = {
+                username: username,
+                email: email,
+                created: new Date().toISOString(),
+                key: userKey
+            };
+
+            // Create empty library for new user
+            library = [];
+
+            // Auto-download encrypted library file
+            const dataStr = encryptData(library, userKey);
+            const blob = new Blob([dataStr], { type: "application/octet-stream" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `zenkari_${username}_library.enc`;
+            a.click();
+
+            statusEl.textContent = "Compte créé! Téléchargez votre fichier de bibliothèque.";
+            statusEl.className = "status-msg status-success";
+
+            setTimeout(() => {
+                closeModal('create-account-modal');
+                initializeApp();
+            }, 2000);
+        }
+
+        // --- APP INITIALIZATION ---
         function initializeApp() {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app-container').style.display = 'grid';
+            
+            // Update user info in sidebar
+            if (currentUser) {
+                document.getElementById('sidebar-username').textContent = currentUser.username;
+                document.getElementById('sidebar-email').textContent = currentUser.email;
+            }
+            
             renderLibrary();
             setupAudioContext();
         }
 
         function logout() {
-            if (currentUser) {
-                saveUserLibrary(currentUser, library);
-            }
-            location.reload();
+            currentUser = null;
+            library = [];
+            currentTrackIndex = -1;
+            isPlaying = false;
+            
+            // Reset form fields
+            document.getElementById('login-username').value = '';
+            document.getElementById('login-pass').value = '';
+            document.getElementById('lib-file').value = '';
+            document.getElementById('file-name-display').textContent = 'Cliquez pour importer (.json ou .enc)';
+            
+            // Stop audio
+            videoEl.pause();
+            videoEl.src = '';
+            
+            // Show login screen
+            document.getElementById('app-container').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'flex';
         }
 
-        // Audio Setup
+        // --- AUDIO ENGINE ---
         function setupAudioContext() {
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioContext = new AudioContext();
-                
-                sourceNode = audioContext.createMediaElementSource(videoEl);
-                gainNode = audioContext.createGain();
-                
-                sourceNode.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-            } catch (e) {
-                console.log('Audio context error:', e);
-            }
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioContext = new AudioContext();
+            
+            sourceNode = audioContext.createMediaElementSource(videoEl);
+            gainNode = audioContext.createGain();
+            
+            sourceNode.connect(gainNode);
+            gainNode.connect(audioContext.destination);
         }
 
-        // Player Functions
+        // --- PLAYER CONTROLS ---
         function loadTrack(index) {
             if (index < 0 || index >= library.length) return;
             
@@ -1028,7 +1193,7 @@
             videoEl.play().then(() => {
                 isPlaying = true;
                 playBtn.textContent = '⏸';
-            }).catch(e => console.log('Play error:', e));
+            }).catch(e => console.log("Playback error:", e));
         }
 
         function togglePlay() {
@@ -1047,25 +1212,21 @@
         }
 
         function nextTrack() {
-            if (library.length === 0) return;
             let nextIndex = currentTrackIndex + 1;
             if (nextIndex >= library.length) nextIndex = 0;
             loadTrack(nextIndex);
         }
 
         function prevTrack() {
-            if (library.length === 0) return;
             let prevIndex = currentTrackIndex - 1;
             if (prevIndex < 0) prevIndex = library.length - 1;
             loadTrack(prevIndex);
         }
 
-        function seek(event) {
-            const rect = document.getElementById('progress-bar').getBoundingClientRect();
-            const pos = (event.clientX - rect.left) / rect.width;
-            if (videoEl.duration) {
-                videoEl.currentTime = pos * videoEl.duration;
-            }
+        function seek(e) {
+            const rect = e.target.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            videoEl.currentTime = pos * videoEl.duration;
         }
 
         function setVolume(val) {
@@ -1073,47 +1234,42 @@
             if (gainNode) gainNode.gain.value = val;
         }
 
-        // UI Functions
+        // --- UI RENDERING ---
         function renderLibrary() {
             const container = document.getElementById('track-list-container');
             container.innerHTML = '';
 
-            if (library.length === 0) {
-                container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-muted);">Aucune musique. Cliquez sur + pour ajouter des fichiers.</div>';
-                return;
-            }
-
             library.forEach((track, index) => {
                 const row = document.createElement('div');
                 row.className = 'track-row';
-                row.id = 'track-' + index;
-                row.onclick = function() { loadTrack(index); };
+                row.onclick = () => loadTrack(index);
+                row.id = `track-${index}`;
 
                 let duration = "0:00";
                 if (track.duration) {
                     const m = Math.floor(track.duration / 60);
                     const s = Math.floor(track.duration % 60);
-                    duration = m + ':' + (s < 10 ? '0' : '') + s;
+                    duration = `${m}:${s < 10 ? '0' : ''}${s}`;
                 }
 
-                row.innerHTML = '<div class="track-num">' + (index + 1) + '</div>' +
-                    '<div class="track-icon">♫</div>' +
-                    '<div class="track-info">' +
-                    '<div class="track-title">' + (track.title || 'Sans titre') + '</div>' +
-                    '<div class="track-artist">' + (track.artist || 'Inconnu') + '</div>' +
-                    '</div>' +
-                    '<div>' + (track.album || '-') + '</div>' +
-                    '<div>' + duration + '</div>';
+                row.innerHTML = `
+                    <div class="track-num">${index + 1}</div>
+                    <div class="track-icon">♫</div>
+                    <div class="track-info">
+                        <div class="track-title">${track.title || 'Sans titre'}</div>
+                        <div class="track-artist">${track.artist || 'Inconnu'}</div>
+                    </div>
+                    <div>${track.album || '-'}</div>
+                    <div>${duration}</div>
+                `;
                 container.appendChild(row);
             });
         }
 
         function highlightTrack() {
-            document.querySelectorAll('.track-row').forEach(function(r) { 
-                r.classList.remove('playing'); 
-            });
+            document.querySelectorAll('.track-row').forEach(r => r.classList.remove('playing'));
             if (currentTrackIndex !== -1) {
-                const el = document.getElementById('track-' + currentTrackIndex);
+                const el = document.getElementById(`track-${currentTrackIndex}`);
                 if (el) {
                     el.classList.add('playing');
                     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1124,55 +1280,69 @@
         function filterTracks(query) {
             const rows = document.querySelectorAll('.track-row');
             const q = query.toLowerCase();
-            rows.forEach(function(row) {
-                const text = row.textContent.toLowerCase();
+            rows.forEach((row, idx) => {
+                const track = library[idx];
+                const text = (track.title + ' ' + track.artist).toLowerCase();
                 row.style.display = text.includes(q) ? 'grid' : 'none';
             });
         }
 
-        function toggleLike() {
-            const btn = document.getElementById('btn-like');
-            if (btn.style.color === 'var(--danger)') {
-                btn.style.color = 'var(--text-muted)';
-            } else {
-                btn.style.color = 'var(--danger)';
+        // --- EVENT LISTENERS ---
+        videoEl.addEventListener('timeupdate', () => {
+            if (videoEl.duration) {
+                const pct = (videoEl.currentTime / videoEl.duration) * 100;
+                progressFill.style.width = `${pct}%`;
+                
+                currTimeEl.textContent = formatTime(videoEl.currentTime);
+                totalTimeEl.textContent = formatTime(videoEl.duration);
             }
+        });
+
+        videoEl.addEventListener('ended', nextTrack);
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
         }
 
-        function switchView(view) {
-            document.querySelectorAll('.nav-item').forEach(function(el) { 
-                el.classList.remove('active'); 
+        // --- DATA MANAGEMENT ---
+        function addLocalFiles(files) {
+            Array.from(files).forEach(file => {
+                const url = URL.createObjectURL(file);
+                const type = file.type;
+                const nameParts = file.name.split('.');
+                const name = nameParts.length > 1 ? nameParts.slice(0, -1).join('.') : file.name;
+
+                library.push({
+                    title: name,
+                    artist: "Local File",
+                    album: "Import",
+                    url: url,
+                    type: type,
+                    duration: 0
+                });
             });
-            document.getElementById('nav-' + view).classList.add('active');
-            
-            if (view === 'favorites') {
-                alert('Fonctionnalité Favoris: Filtrer par titres likés');
-            } else {
-                renderLibrary();
-            }
-        }
-
-        function openSettings() {
-            document.getElementById('settings-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.querySelectorAll('.modal-overlay').forEach(function(el) { 
-                el.style.display = 'none'; 
-            });
+            renderLibrary();
+            alert(`${files.length} fichier(s) ajouté(s) à la session.`);
         }
 
         function exportLibrary(encrypt) {
+            if (!currentUser) {
+                alert("Veuillez vous connecter d'abord");
+                return;
+            }
+
             let dataStr, blob, filename;
 
-            if (encrypt && userPassword) {
-                dataStr = encryptData(library, userPassword);
+            if (encrypt) {
+                dataStr = encryptData(library, currentUser.key);
                 blob = new Blob([dataStr], { type: "application/octet-stream" });
-                filename = 'zenkari_secure_' + new Date().toISOString().slice(0,10) + '.enc';
+                filename = `zenkari_${currentUser.username}_library.enc`;
             } else {
                 dataStr = JSON.stringify(library, null, 2);
                 blob = new Blob([dataStr], { type: "application/json" });
-                filename = 'zenkari_backup_' + new Date().toISOString().slice(0,10) + '.json';
+                filename = `zenkari_${currentUser.username}_library.json`;
             }
             
             const url = URL.createObjectURL(blob);
@@ -1182,72 +1352,59 @@
             a.click();
             
             const statusEl = document.getElementById('save-status');
-            statusEl.textContent = 'Exportation réussie !';
+            statusEl.textContent = `Exportation ${encrypt ? 'Cryptée' : 'Standard'} réussie !`;
             statusEl.className = "status-msg status-success";
-            setTimeout(function() {
+            setTimeout(() => {
                 statusEl.textContent = "";
-                closeModal();
+                closeModal('settings-modal');
             }, 3000);
         }
 
-        function addLocalFiles(files) {
-            if (!files || files.length === 0) return;
+        function toggleLike() {
+            if (currentTrackIndex === -1) return;
+            const btn = document.querySelector('.player-left .btn-icon');
+            if (btn.style.color === 'var(--danger)') {
+                btn.style.color = 'var(--text-muted)';
+            } else {
+                btn.style.color = 'var(--danger)';
+            }
+        }
+
+        function switchView(view) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
             
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const url = URL.createObjectURL(file);
-                const type = file.type;
-                const nameParts = file.name.split('.');
-                const name = nameParts.length > 1 ? nameParts.slice(0, -1).join('.') : file.name;
-
-                library.push({
-                    title: name,
-                    artist: "Fichier Local",
-                    album: "Import",
-                    url: url,
-                    type: type,
-                    duration: 0
-                });
+            if (view === 'favorites') {
+                alert("Fonctionnalité Favoris : Filtrer la liste actuelle par les titres likés.");
+            } else {
+                renderLibrary();
             }
-            renderLibrary();
-            if (currentUser) saveUserLibrary(currentUser, library);
-            alert(files.length + ' fichier(s) ajouté(s)');
         }
 
-        // Event Listeners
-        videoEl.addEventListener('timeupdate', function() {
-            if (videoEl.duration) {
-                const pct = (videoEl.currentTime / videoEl.duration) * 100;
-                progressFill.style.width = pct + '%';
-                currTimeEl.textContent = formatTime(videoEl.currentTime);
-                totalTimeEl.textContent = formatTime(videoEl.duration);
-            }
-        });
-
-        videoEl.addEventListener('ended', nextTrack);
-
-        function formatTime(seconds) {
-            if (!seconds || isNaN(seconds)) return '0:00';
-            const m = Math.floor(seconds / 60);
-            const s = Math.floor(seconds % 60);
-            return m + ':' + (s < 10 ? '0' : '') + s;
+        function openSettings() {
+            document.getElementById('settings-modal').style.display = 'flex';
         }
 
-        // Close modal on outside click
+        function openAccountSettings() {
+            if (!currentUser) return;
+            
+            document.getElementById('account-username').value = currentUser.username;
+            document.getElementById('account-email').value = currentUser.email;
+            document.getElementById('account-created').value = new Date(currentUser.created).toLocaleDateString('fr-FR');
+            document.getElementById('account-tracks').value = library.length + " titres";
+            
+            document.getElementById('account-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
-                closeModal();
+                event.target.style.display = 'none';
             }
-        };
-
-        // Enter key for login
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                if (document.getElementById('login-screen').style.display !== 'none') {
-                    attemptLogin();
-                }
-            }
-        });
+        }
     </script>
 </body>
 </html>
