@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenkari Music Pro</title>
+    <title>Zenkari Music Pro - Secure</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,6 +20,7 @@
             --success: #22c55e;
             --warning: #f59e0b;
             --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
             --sidebar-width: 280px;
             --player-height: 90px;
             --header-height: 64px;
@@ -42,7 +43,10 @@
         /* === LOGIN SCREEN === */
         #login-screen {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, #09090b 0%, #1a1a2e 100%);
             z-index: 9999;
             display: flex;
@@ -80,6 +84,7 @@
             font-weight: 700;
             margin-bottom: 8px;
             text-align: center;
+            letter-spacing: -0.5px;
         }
 
         .login-sub {
@@ -97,7 +102,7 @@
             display: block;
             font-size: 11px;
             color: var(--text-muted);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -117,7 +122,7 @@
         .zen-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
 
         .btn-primary {
@@ -131,10 +136,13 @@
             cursor: pointer;
             transition: all 0.2s;
             font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary:hover {
             background: var(--primary-hover);
+            transform: translateY(-1px);
         }
 
         .btn-success {
@@ -148,11 +156,14 @@
             cursor: pointer;
             transition: all 0.2s;
             font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-top: 10px;
         }
 
         .btn-success:hover {
             background: #16a34a;
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
@@ -189,9 +200,9 @@
             background: #d97706;
         }
 
-        .btn-danger {
-            padding: 8px 14px;
-            background: var(--danger);
+        .btn-fullscreen {
+            padding: 8px 16px;
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: var(--radius);
@@ -199,10 +210,14 @@
             cursor: pointer;
             transition: all 0.2s;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .btn-danger:hover {
-            background: #dc2626;
+        .btn-fullscreen:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
         }
 
         .file-drop-area {
@@ -240,6 +255,7 @@
             color: var(--text-muted);
             font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* === MAIN APP LAYOUT === */
@@ -277,13 +293,14 @@
             height: 70px;
             border-radius: 12px;
             object-fit: cover;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
         }
 
         .brand-text {
             font-size: 18px;
             font-weight: 700;
             color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
         .user-info {
@@ -298,7 +315,7 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--text-main);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .user-email {
@@ -309,14 +326,14 @@
         .storage-info {
             font-size: 9px;
             color: var(--text-muted);
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
         .storage-bar {
             height: 3px;
             background: var(--bg-app);
             border-radius: 2px;
-            margin-top: 5px;
+            margin-top: 6px;
             overflow: hidden;
         }
 
@@ -330,7 +347,7 @@
         .nav-section {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
 
         .nav-title {
@@ -362,6 +379,7 @@
 
         .nav-title button:hover {
             background: var(--primary-hover);
+            transform: scale(1.1);
         }
 
         .nav-item {
@@ -444,7 +462,7 @@
             height: 20px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -474,7 +492,7 @@
             top: 0;
             background: rgba(9, 9, 11, 0.95);
             backdrop-filter: blur(20px);
-            padding: 0 28px;
+            padding: 0 24px;
             height: var(--header-height);
             display: flex;
             justify-content: space-between;
@@ -492,7 +510,7 @@
         .search-bar {
             background: var(--bg-sidebar);
             border: 1px solid var(--border);
-            padding: 9px 18px;
+            padding: 8px 16px;
             border-radius: 20px;
             width: 320px;
             color: var(--text-main);
@@ -503,7 +521,7 @@
         .search-bar:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
 
         .user-actions {
@@ -523,30 +541,26 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .btn-icon:hover {
             background: var(--bg-hover);
             border-color: var(--primary);
-        }
-
-        .btn-icon.fullscreen-btn {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .btn-icon.fullscreen-btn:hover {
-            background: var(--primary-hover);
+            transform: translateY(-2px);
         }
 
         /* Video Player Container */
-        .video-container {
+        .video-section {
             width: 100%;
             background: #000;
             position: relative;
-            overflow: hidden;
+        }
+
+        .video-container {
+            width: 100%;
+            position: relative;
+            background: #000;
         }
 
         .video-wrapper {
@@ -554,6 +568,7 @@
             width: 100%;
             padding-top: 45%;
             background: #000;
+            max-height: 500px;
         }
 
         .video-wrapper video {
@@ -567,7 +582,10 @@
 
         .video-placeholder {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -587,20 +605,20 @@
             font-weight: 500;
         }
 
-        /* Custom Video Controls */
-        .video-controls {
+        /* Video Controls Bar */
+        .video-controls-bar {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 18px 20px 14px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            padding: 16px 20px 14px;
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 5;
         }
 
-        .video-container:hover .video-controls {
+        .video-container:hover .video-controls-bar {
             opacity: 1;
         }
 
@@ -610,7 +628,7 @@
             background: rgba(255,255,255,0.2);
             border-radius: 3px;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             position: relative;
         }
 
@@ -624,6 +642,24 @@
             border-radius: 3px;
             width: 0%;
             position: relative;
+        }
+
+        .video-progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .video-progress:hover .video-progress-fill::after {
+            opacity: 1;
         }
 
         .video-controls-row {
@@ -640,21 +676,21 @@
         }
 
         .video-btn {
-            background: none;
+            background: rgba(255,255,255,0.1);
             border: none;
             color: #fff;
             cursor: pointer;
-            padding: 7px;
-            border-radius: 5px;
+            padding: 6px 10px;
+            border-radius: 6px;
             transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .video-btn:hover {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.2);
         }
 
         .video-btn.play-btn {
@@ -662,17 +698,18 @@
             height: 40px;
             background: var(--primary);
             border-radius: 50%;
+            padding: 0;
         }
 
         .video-btn.play-btn:hover {
             background: var(--primary-hover);
+            transform: scale(1.05);
         }
 
         .video-btn.fullscreen-btn {
             background: var(--primary);
-            border-radius: 6px;
-            padding: 7px 14px;
-            font-size: 13px;
+            padding: 8px 14px;
+            font-size: 12px;
             font-weight: 600;
         }
 
@@ -685,6 +722,7 @@
             color: rgba(255,255,255,0.8);
             font-family: 'Inter', monospace;
             min-width: 90px;
+            text-align: center;
         }
 
         .video-volume {
@@ -704,8 +742,8 @@
 
         .video-volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 11px;
-            height: 11px;
+            width: 10px;
+            height: 10px;
             background: #fff;
             border-radius: 50%;
             cursor: pointer;
@@ -726,6 +764,7 @@
             min-width: 180px;
             display: none;
             z-index: 10;
+            margin-bottom: 8px;
         }
 
         .video-settings.active .video-settings-menu {
@@ -733,7 +772,7 @@
         }
 
         .video-settings-item {
-            padding: 9px 14px;
+            padding: 8px 14px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -752,13 +791,13 @@
         .video-settings-divider {
             height: 1px;
             background: var(--border);
-            margin: 5px 0;
+            margin: 4px 0;
         }
 
         /* Playlist Section */
         .playlist-section {
             flex: 1;
-            padding: 20px 28px;
+            padding: 20px 24px;
         }
 
         .playlist-header-info {
@@ -766,6 +805,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
         }
 
         .playlist-title {
@@ -776,11 +817,17 @@
         .playlist-meta {
             font-size: 12px;
             color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .playlist-actions {
+            display: flex;
+            gap: 8px;
         }
 
         .playlist-header {
             display: grid;
-            grid-template-columns: 45px 4fr 3fr 90px 50px;
+            grid-template-columns: 40px 4fr 3fr 80px 50px;
             padding: 10px 14px;
             color: var(--text-muted);
             font-size: 10px;
@@ -798,14 +845,14 @@
 
         .track-row {
             display: grid;
-            grid-template-columns: 45px 4fr 3fr 90px 50px;
+            grid-template-columns: 40px 4fr 3fr 80px 50px;
             padding: 12px 14px;
             border-radius: var(--radius);
             align-items: center;
             cursor: pointer;
             color: var(--text-muted);
             transition: all 0.2s;
-            gap: 14px;
+            gap: 12px;
         }
 
         .track-row:hover {
@@ -902,7 +949,7 @@
             color: var(--text-muted);
             width: 28px;
             height: 28px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 12px;
             display: flex;
@@ -934,18 +981,18 @@
         }
 
         .player-left {
-            width: 30%;
+            width: 28%;
             min-width: 220px;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .now-playing-art {
             width: 54px;
             height: 54px;
             background: var(--bg-hover);
-            border-radius: 5px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -981,7 +1028,7 @@
         }
 
         .player-center {
-            width: 40%;
+            width: 44%;
             max-width: 550px;
             display: flex;
             flex-direction: column;
@@ -992,7 +1039,7 @@
         .player-controls {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .ctrl-btn {
@@ -1026,6 +1073,7 @@
         .ctrl-btn.play-pause:hover {
             background: var(--primary);
             color: #fff;
+            transform: scale(1.05);
         }
 
         .ctrl-btn.active {
@@ -1071,8 +1119,8 @@
             right: -4px;
             top: 50%;
             transform: translateY(-50%);
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             background: #fff;
             border-radius: 50%;
             opacity: 0;
@@ -1084,7 +1132,7 @@
         }
 
         .player-right {
-            width: 30%;
+            width: 28%;
             min-width: 180px;
             display: flex;
             justify-content: flex-end;
@@ -1097,9 +1145,9 @@
             border: none;
             color: var(--text-muted);
             cursor: pointer;
-            font-size: 15px;
-            width: 34px;
-            height: 34px;
+            font-size: 14px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1134,11 +1182,12 @@
 
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 11px;
-            height: 11px;
+            width: 10px;
+            height: 10px;
             background: var(--text-muted);
             border-radius: 50%;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
         .volume-slider::-webkit-slider-thumb:hover {
@@ -1148,7 +1197,10 @@
         /* Modal */
         .modal-overlay {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0,0,0,0.8);
             backdrop-filter: blur(8px);
             z-index: 1000;
@@ -1160,7 +1212,7 @@
         .modal-content {
             background: var(--bg-sidebar);
             padding: 28px;
-            border-radius: 14px;
+            border-radius: 16px;
             width: 100%;
             max-width: 650px;
             border: 1px solid var(--border);
@@ -1186,8 +1238,8 @@
             cursor: pointer;
             color: var(--text-muted);
             font-size: 22px;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1208,7 +1260,7 @@
             display: flex;
             gap: 10px;
             justify-content: flex-end;
-            padding-top: 18px;
+            padding-top: 16px;
             border-top: 1px solid var(--border);
         }
 
@@ -1257,17 +1309,17 @@
         .strength-medium { background: #f59e0b; width: 66%; }
         .strength-strong { background: var(--success); width: 100%; }
 
-        /* Equalizer */
+        /* Equalizer Styles */
         .eq-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             height: 260px;
-            padding: 18px 8px;
+            padding: 16px 8px;
             background: var(--bg-app);
             border-radius: var(--radius);
             gap: 6px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .eq-band {
@@ -1290,7 +1342,7 @@
         .eq-slider {
             writing-mode: bt-lr;
             -webkit-appearance: slider-vertical;
-            width: 7px;
+            width: 6px;
             height: 160px;
             background: var(--bg-hover);
             border-radius: 3px;
@@ -1326,11 +1378,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 8px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .eq-preset-btn {
-            padding: 10px 14px;
+            padding: 10px 12px;
             background: var(--bg-hover);
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -1360,15 +1412,15 @@
         .settings-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
-            margin-bottom: 18px;
+            gap: 16px;
+            margin-bottom: 16px;
         }
 
         .settings-card {
             background: var(--bg-app);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 18px;
+            padding: 16px;
         }
 
         .settings-card-title {
@@ -1376,6 +1428,9 @@
             font-weight: 600;
             margin-bottom: 14px;
             color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .settings-option {
@@ -1403,7 +1458,7 @@
 
         .toggle-switch {
             position: relative;
-            width: 44px;
+            width: 42px;
             height: 24px;
             background: var(--bg-hover);
             border-radius: 12px;
@@ -1428,11 +1483,11 @@
         }
 
         .toggle-switch.active::after {
-            transform: translateX(20px);
+            transform: translateX(18px);
         }
 
         .select-input {
-            padding: 7px 10px;
+            padding: 6px 10px;
             background: var(--bg-hover);
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -1452,8 +1507,8 @@
 
         .range-input::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 13px;
-            height: 13px;
+            width: 12px;
+            height: 12px;
             background: var(--primary);
             border-radius: 50%;
             cursor: pointer;
@@ -1474,14 +1529,14 @@
             flex: 1;
             height: 5px;
             background: var(--bg-hover);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
         }
 
         .progress-indicator-fill {
             height: 100%;
             background: var(--primary);
-            border-radius: 2px;
+            border-radius: 3px;
             width: 0%;
             transition: width 0.3s;
         }
@@ -1489,7 +1544,7 @@
         .progress-indicator-text {
             font-size: 11px;
             color: var(--text-muted);
-            min-width: 110px;
+            min-width: 100px;
         }
 
         /* Context Menu */
@@ -1502,15 +1557,15 @@
             min-width: 180px;
             z-index: 2000;
             display: none;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow);
         }
 
         .context-menu-item {
-            padding: 9px 14px;
+            padding: 8px 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px;
             font-size: 12px;
             color: var(--text-muted);
             transition: all 0.2s;
@@ -1524,7 +1579,7 @@
         .context-menu-divider {
             height: 1px;
             background: var(--border);
-            margin: 5px 0;
+            margin: 4px 0;
         }
 
         .context-menu-item.danger {
@@ -1537,7 +1592,7 @@
 
         /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 7px;
+            width: 6px;
         }
 
         ::-webkit-scrollbar-track {
@@ -1571,8 +1626,8 @@
                 grid-column: 1;
                 flex-direction: row;
                 flex-wrap: wrap;
-                padding: 14px;
-                gap: 14px;
+                padding: 12px;
+                gap: 12px;
             }
 
             .brand {
@@ -1602,15 +1657,39 @@
             }
 
             .video-wrapper {
-                padding-top: 50%;
+                padding-top: 56.25%;
+                max-height: none;
+            }
+
+            .eq-container {
+                height: 180px;
+            }
+
+            .eq-slider {
+                height: 110px;
             }
 
             .track-row {
                 grid-template-columns: 35px 1fr 70px 35px;
             }
 
-            .track-album,
+            .track-album {
+                display: none;
+            }
+
             .track-actions {
+                display: none;
+            }
+
+            .player-left {
+                width: 35%;
+            }
+
+            .player-center {
+                width: 65%;
+            }
+
+            .player-right {
                 display: none;
             }
         }
@@ -1624,7 +1703,7 @@
             <div class="login-card">
                 <img src="https://image.qwenlm.ai/public_source/ff29c596-e004-4018-9f86-2e7894a52ae0/136eb1e83-8b32-4b0c-bf4c-86f624b354e0.png" alt="Zenkari Logo" class="login-logo">
                 <h1 class="login-title">ZENKARI PRO</h1>
-                <p class="login-sub">Lecteur multimédia sécurisé</p>
+                <p class="login-sub">Système de lecture multimédia sécurisé</p>
 
                 <div class="input-group">
                     <label class="input-label">Nom d'utilisateur</label>
@@ -1636,18 +1715,18 @@
                     <input type="password" id="login-pass" class="zen-input" placeholder="••••••">
                 </div>
 
-                <button class="btn-primary" onclick="attemptLogin()">Se connecter</button>
+                <button class="btn-primary" onclick="attemptLogin()">Se Connecter</button>
 
                 <div class="divider">
-                    <span>ou</span>
+                    <span>Ou</span>
                 </div>
 
-                <button class="btn-success" onclick="openCreateAccount()">Créer un compte</button>
+                <button class="btn-success" onclick="openCreateAccount()">Créer un Compte</button>
 
                 <div class="input-group">
                     <label class="input-label">Importer une bibliothèque</label>
                     <div class="file-drop-area" onclick="document.getElementById('lib-file').click()">
-                        <span id="file-name-display">Cliquez pour importer (.json ou .enc)</span>
+                        <span id="file-name-display">📁 Cliquez pour importer (.json ou .enc)</span>
                         <input type="file" id="lib-file" accept=".json,.enc" style="display: none" onchange="handleFileSelect(this)">
                     </div>
                 </div>
@@ -1659,7 +1738,7 @@
     <div class="modal-overlay" id="create-account-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Créer un compte</span>
+                <span>Créer un Nouveau Compte</span>
                 <span class="close-modal" onclick="closeModal('create-account-modal')">×</span>
             </div>
             <div class="modal-body">
@@ -1686,7 +1765,12 @@
                     <input type="password" id="confirm-password" class="zen-input" placeholder="••••••••">
                 </div>
 
-                <button class="btn-success" onclick="createAccount()">Créer le compte</button>
+                <p style="font-size: 10px; color: var(--text-muted); margin-top: 14px; line-height: 1.5;">
+                    Un fichier de bibliothèque crypté sera généré automatiquement pour votre compte. 
+                    Les fichiers audio/vidéo seront stockés localement dans le navigateur.
+                </p>
+
+                <button class="btn-success" onclick="createAccount()">Créer le Compte</button>
                 <div id="create-status" class="status-msg hidden"></div>
             </div>
         </div>
@@ -1713,15 +1797,17 @@
             </div>
 
             <div class="nav-section">
-                <div class="nav-title">Menu</div>
+                <div class="nav-title">
+                    <span>Menu Principal</span>
+                </div>
                 <div class="nav-item active" onclick="switchView('library')">
-                    <span>Bibliothèque</span>
+                    <span>📚</span> Bibliothèque
                 </div>
                 <div class="nav-item" onclick="switchView('favorites')">
-                    <span>Favoris</span>
+                    <span>❤️</span> Favoris
                 </div>
                 <div class="nav-item" onclick="switchView('history')">
-                    <span>Historique</span>
+                    <span>📜</span> Historique
                 </div>
             </div>
 
@@ -1730,22 +1816,26 @@
                     <span>Playlists</span>
                     <button onclick="openCreatePlaylistModal()">+</button>
                 </div>
-                <div class="playlist-list" id="playlist-list"></div>
+                <div class="playlist-list" id="playlist-list">
+                    <!-- Playlists injected here -->
+                </div>
             </div>
 
             <div class="nav-section">
-                <div class="nav-title">Système</div>
+                <div class="nav-title">
+                    <span>Système</span>
+                </div>
                 <div class="nav-item" onclick="openSettings()">
-                    <span>Paramètres</span>
+                    <span>⚙️</span> Paramètres
                 </div>
                 <div class="nav-item" onclick="openEqualizer()">
-                    <span>Égaliseur</span>
+                    <span>🎚</span> Égaliseur
                 </div>
                 <div class="nav-item" onclick="openAccountSettings()">
-                    <span>Mon compte</span>
+                    <span>👤</span> Mon Compte
                 </div>
                 <div class="nav-item danger" onclick="logout()">
-                    <span>Déconnexion</span>
+                    <span>🚪</span> Déconnexion
                 </div>
             </div>
         </div>
@@ -1755,65 +1845,69 @@
             <!-- Top Bar -->
             <div class="top-bar">
                 <div class="search-container">
-                    <input type="text" class="search-bar" placeholder="Rechercher..." oninput="filterTracks(this.value)">
+                    <input type="text" class="search-bar" placeholder="🔍 Rechercher..." oninput="filterTracks(this.value)">
                 </div>
                 <div class="user-actions">
-                    <button class="btn-icon" onclick="document.getElementById('add-files').click()" title="Ajouter">+</button>
+                    <button class="btn-icon" onclick="document.getElementById('add-files').click()" title="Ajouter des fichiers">+</button>
                     <input type="file" id="add-files" multiple accept="audio/*,video/*" style="display: none" onchange="addLocalFiles(this.files)">
-                    <button class="btn-icon fullscreen-btn" onclick="toggleVideoFullscreen()" title="Plein écran vidéo">⛶</button>
-                    <button class="btn-icon" onclick="openSettings()" title="Paramètres">⚙</button>
+                    <button class="btn-icon" onclick="openSettings()" title="Paramètres">⚙️</button>
                 </div>
             </div>
 
-            <!-- Video Container -->
-            <div class="video-container" id="video-container">
-                <div class="video-wrapper">
-                    <video id="main-video" playsinline></video>
-                    <div class="video-placeholder" id="video-placeholder">
-                        <div class="video-placeholder-icon">▶</div>
-                        <div class="video-placeholder-text">Sélectionnez un titre</div>
-                    </div>
-                </div>
-
-                <!-- Video Controls -->
-                <div class="video-controls" id="video-controls">
-                    <div class="video-progress" id="video-progress">
-                        <div class="video-progress-fill" id="video-progress-fill"></div>
-                    </div>
-                    <div class="video-controls-row">
-                        <div class="video-controls-left">
-                            <button class="video-btn play-btn" id="video-play-btn" onclick="togglePlay()">▶</button>
-                            <button class="video-btn" onclick="prevTrack()" title="Précédent">⏮</button>
-                            <button class="video-btn" onclick="nextTrack()" title="Suivant">⏭</button>
-                            <div class="video-time">
-                                <span id="video-curr-time">0:00</span> / <span id="video-total-time">0:00</span>
-                            </div>
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-container" id="video-container">
+                    <div class="video-wrapper">
+                        <video id="main-video" playsinline></video>
+                        <div class="video-placeholder" id="video-placeholder">
+                            <div class="video-placeholder-icon">▶</div>
+                            <div class="video-placeholder-text">Sélectionnez un titre pour commencer</div>
                         </div>
-                        <div class="video-controls-right">
-                            <div class="video-volume">
-                                <button class="video-btn" onclick="toggleMute()">🔊</button>
-                                <input type="range" class="video-volume-slider" id="video-volume" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)">
-                            </div>
-                            <button class="video-btn" onclick="togglePlaybackSpeed()" title="Vitesse">1x</button>
-                            <div class="video-settings" id="video-settings">
-                                <button class="video-btn" onclick="toggleSettingsMenu()">⚙</button>
-                                <div class="video-settings-menu">
-                                    <div class="video-settings-item" onclick="toggleLoop()">
-                                        <span>Boucle</span>
-                                        <span id="loop-status">Non</span>
-                                    </div>
-                                    <div class="video-settings-item" onclick="toggleShuffle()">
-                                        <span>Aléatoire</span>
-                                        <span id="shuffle-status">Non</span>
-                                    </div>
-                                    <div class="video-settings-divider"></div>
-                                    <div class="video-settings-item" onclick="openQueueModal()">
-                                        <span>File de lecture</span>
-                                        <span>📋</span>
-                                    </div>
+                    </div>
+
+                    <!-- Video Controls Bar -->
+                    <div class="video-controls-bar" id="video-controls">
+                        <div class="video-progress" id="video-progress">
+                            <div class="video-progress-fill" id="video-progress-fill"></div>
+                        </div>
+                        <div class="video-controls-row">
+                            <div class="video-controls-left">
+                                <button class="video-btn play-btn" id="video-play-btn" onclick="togglePlay()">▶</button>
+                                <button class="video-btn" onclick="prevTrack()" title="Précédent">⏮</button>
+                                <button class="video-btn" onclick="nextTrack()" title="Suivant">⏭</button>
+                                <div class="video-time">
+                                    <span id="video-curr-time">0:00</span> / <span id="video-total-time">0:00</span>
                                 </div>
                             </div>
-                            <button class="video-btn fullscreen-btn" onclick="toggleVideoFullscreen()" title="Plein écran">⛶</button>
+                            <div class="video-controls-right">
+                                <div class="video-volume">
+                                    <button class="video-btn" onclick="toggleMute()">🔊</button>
+                                    <input type="range" class="video-volume-slider" id="video-volume" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)">
+                                </div>
+                                <button class="video-btn" onclick="togglePlaybackSpeed()" title="Vitesse">1x</button>
+                                <div class="video-settings" id="video-settings">
+                                    <button class="video-btn" onclick="toggleSettingsMenu()">⚙️</button>
+                                    <div class="video-settings-menu">
+                                        <div class="video-settings-item" onclick="toggleLoop()">
+                                            <span>Boucle</span>
+                                            <span id="loop-status">Off</span>
+                                        </div>
+                                        <div class="video-settings-item" onclick="toggleShuffle()">
+                                            <span>Aléatoire</span>
+                                            <span id="shuffle-status">Off</span>
+                                        </div>
+                                        <div class="video-settings-divider"></div>
+                                        <div class="video-settings-item" onclick="openQueueModal()">
+                                            <span>File de lecture</span>
+                                            <span>📋</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FULLSCREEN BUTTON -->
+                                <button class="video-btn fullscreen-btn" onclick="toggleVideoFullscreen()" title="Plein écran">
+                                    ⛶ Plein écran
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1826,9 +1920,9 @@
                         <div class="playlist-title" id="current-playlist-title">Bibliothèque</div>
                         <div class="playlist-meta" id="current-playlist-meta">0 titres</div>
                     </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn-warning" onclick="shuffleCurrentPlaylist()">Mélanger</button>
-                        <button class="btn-primary" onclick="playAllTracks()">Tout lire</button>
+                    <div class="playlist-actions">
+                        <button class="btn-warning" onclick="shuffleCurrentPlaylist()">🔀 Mélanger</button>
+                        <button class="btn-primary" onclick="playAllTracks()">▶ Tout lire</button>
                     </div>
                 </div>
 
@@ -1836,10 +1930,12 @@
                     <div>#</div>
                     <div>TITRE</div>
                     <div>ALBUM</div>
-                    <div style="text-align: right;">Durée</div>
+                    <div style="text-align: right;">⏱</div>
                     <div style="text-align: center;">⋮</div>
                 </div>
-                <div class="track-list" id="track-list-container"></div>
+                <div class="track-list" id="track-list-container">
+                    <!-- Tracks injected here -->
+                </div>
             </div>
         </div>
 
@@ -1873,7 +1969,7 @@
 
             <div class="player-right">
                 <button class="player-btn" onclick="openEqualizer()" title="Égaliseur">🎚</button>
-                <button class="player-btn" onclick="openQueueModal()" title="File">📋</button>
+                <button class="player-btn" onclick="openQueueModal()" title="File de lecture">📋</button>
                 <div class="volume-container">
                     <button class="player-btn" onclick="toggleMute()">🔊</button>
                     <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)">
@@ -1898,7 +1994,7 @@
             <span>📚</span> Ajouter à la playlist
         </div>
         <div class="context-menu-item" onclick="contextAction('favorite')">
-            <span>♥</span> Favori
+            <span>❤️</span> Favori
         </div>
         <div class="context-menu-divider"></div>
         <div class="context-menu-item danger" onclick="contextAction('delete')">
@@ -1910,13 +2006,13 @@
     <div class="modal-overlay" id="settings-modal">
         <div class="modal-content large">
             <div class="modal-header">
-                <span>Paramètres</span>
+                <span>Paramètres & Options</span>
                 <span class="close-modal" onclick="closeModal('settings-modal')">×</span>
             </div>
             <div class="modal-body">
                 <div class="settings-grid">
                     <div class="settings-card">
-                        <div class="settings-card-title">Lecture</div>
+                        <div class="settings-card-title">🎵 Lecture</div>
                         <div class="settings-option">
                             <span class="settings-option-label">Lecture aléatoire</span>
                             <div class="toggle-switch" id="toggle-shuffle" onclick="toggleShuffleSetting()"></div>
@@ -1928,7 +2024,7 @@
                     </div>
 
                     <div class="settings-card">
-                        <div class="settings-card-title">Audio</div>
+                        <div class="settings-card-title">🔊 Audio</div>
                         <div class="settings-option">
                             <span class="settings-option-label">Volume par défaut</span>
                             <div class="settings-option-value">
@@ -1939,14 +2035,31 @@
                     </div>
 
                     <div class="settings-card">
-                        <div class="settings-card-title">Données</div>
+                        <div class="settings-card-title">🎬 Vidéo</div>
                         <div class="settings-option">
-                            <span class="settings-option-label">Export crypté</span>
+                            <span class="settings-option-label">Qualité vidéo</span>
+                            <select class="select-input" id="video-quality">
+                                <option value="auto">Automatique</option>
+                                <option value="1080">1080p</option>
+                                <option value="720">720p</option>
+                                <option value="480">480p</option>
+                            </select>
+                        </div>
+                        <div class="settings-option">
+                            <span class="settings-option-label">Plein écran</span>
+                            <button class="btn-fullscreen" onclick="toggleVideoFullscreen()">⛶ Activer</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <div class="settings-card-title">💾 Données</div>
+                        <div class="settings-option">
+                            <span class="settings-option-label">Export complet</span>
                             <button class="btn-warning" onclick="exportLibrary(true)">.enc</button>
                         </div>
                         <div class="settings-option">
                             <span class="settings-option-label">Export JSON</span>
-                            <button class="btn-secondary" style="width: auto; padding: 6px 14px; margin: 0;" onclick="exportLibrary(false)">.json</button>
+                            <button class="btn-secondary" style="width: auto; padding: 6px 12px; margin: 0;" onclick="exportLibrary(false)">.json</button>
                         </div>
                     </div>
                 </div>
@@ -1967,13 +2080,17 @@
     <div class="modal-overlay" id="create-playlist-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Créer une playlist</span>
+                <span>Créer une Playlist</span>
                 <span class="close-modal" onclick="closeModal('create-playlist-modal')">×</span>
             </div>
             <div class="modal-body">
                 <div class="input-group">
                     <label class="input-label">Nom de la playlist</label>
                     <input type="text" id="new-playlist-name" class="zen-input" placeholder="Ma playlist">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Description (optionnel)</label>
+                    <input type="text" id="new-playlist-desc" class="zen-input" placeholder="Description...">
                 </div>
                 <div id="create-playlist-status" class="status-msg hidden"></div>
             </div>
@@ -1988,11 +2105,13 @@
     <div class="modal-overlay" id="add-to-playlist-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Ajouter à la playlist</span>
+                <span>Ajouter à la Playlist</span>
                 <span class="close-modal" onclick="closeModal('add-to-playlist-modal')">×</span>
             </div>
             <div class="modal-body">
-                <div class="playlist-list" id="add-to-playlist-list" style="max-height: 280px;"></div>
+                <div class="playlist-list" id="add-to-playlist-list" style="max-height: 280px;">
+                    <!-- Playlists injected here -->
+                </div>
                 <div id="add-to-playlist-status" class="status-msg hidden"></div>
             </div>
         </div>
@@ -2002,14 +2121,16 @@
     <div class="modal-overlay" id="queue-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>File de lecture</span>
+                <span>File de Lecture</span>
                 <span class="close-modal" onclick="closeModal('queue-modal')">×</span>
             </div>
             <div class="modal-body">
-                <div class="track-list" id="queue-list"></div>
-                <div style="margin-top: 18px; display: flex; gap: 8px;">
-                    <button class="btn-secondary" onclick="clearQueue()">Vider</button>
-                    <button class="btn-primary" onclick="shuffleQueue()">Mélanger</button>
+                <div class="track-list" id="queue-list">
+                    <!-- Queue items injected here -->
+                </div>
+                <div style="margin-top: 16px; display: flex; gap: 8px;">
+                    <button class="btn-secondary" onclick="clearQueue()">Vider la file</button>
+                    <button class="btn-primary" onclick="shuffleQueue()">🔀 Mélanger</button>
                 </div>
             </div>
         </div>
@@ -2019,24 +2140,28 @@
     <div class="modal-overlay" id="equalizer-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Égaliseur</span>
+                <span>Égaliseur Audio</span>
                 <span class="close-modal" onclick="closeModal('equalizer-modal')">×</span>
             </div>
             <div class="modal-body">
                 <div class="eq-presets">
                     <button class="eq-preset-btn" onclick="applyEqPreset('flat')">Normal</button>
-                    <button class="eq-preset-btn" onclick="applyEqPreset('bass')">Bass</button>
+                    <button class="eq-preset-btn" onclick="applyEqPreset('bass')">Bass Boost</button>
                     <button class="eq-preset-btn" onclick="applyEqPreset('treble')">Aigus</button>
                     <button class="eq-preset-btn" onclick="applyEqPreset('vocal')">Voix</button>
                     <button class="eq-preset-btn" onclick="applyEqPreset('rock')">Rock</button>
                     <button class="eq-preset-btn" onclick="applyEqPreset('jazz')">Jazz</button>
+                    <button class="eq-preset-btn" onclick="applyEqPreset('electronic')">Électronique</button>
+                    <button class="eq-preset-btn" onclick="applyEqPreset('classical')">Classique</button>
                 </div>
 
-                <div class="eq-container" id="eq-container"></div>
+                <div class="eq-container" id="eq-container">
+                    <!-- EQ bands generated by JS -->
+                </div>
 
                 <div class="eq-controls">
-                    <button class="btn-secondary" onclick="resetEqualizer()">Réinitialiser</button>
-                    <button class="btn-primary" onclick="saveEqualizer()">Sauvegarder</button>
+                    <button class="btn-secondary" onclick="resetEqualizer()">🔄 Réinitialiser</button>
+                    <button class="btn-primary" onclick="saveEqualizer()">💾 Sauvegarder</button>
                 </div>
 
                 <div id="eq-status" class="status-msg hidden"></div>
@@ -2044,11 +2169,11 @@
         </div>
     </div>
 
-    <!-- Account Modal -->
+    <!-- Account Settings Modal -->
     <div class="modal-overlay" id="account-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>Mon compte</span>
+                <span>Mon Compte</span>
                 <span class="close-modal" onclick="closeModal('account-modal')">×</span>
             </div>
             <div class="modal-body">
@@ -2065,19 +2190,19 @@
                     <input type="text" id="account-created" class="zen-input" readonly>
                 </div>
                 <div class="input-group">
-                    <label class="input-label">Titres</label>
+                    <label class="input-label">Titres dans la bibliothèque</label>
                     <input type="text" id="account-tracks" class="zen-input" readonly>
                 </div>
                 <div class="input-group">
-                    <label class="input-label">Playlists</label>
+                    <label class="input-label">Playlists créées</label>
                     <input type="text" id="account-playlists" class="zen-input" readonly>
                 </div>
                 <div class="input-group">
-                    <label class="input-label">Stockage</label>
+                    <label class="input-label">Stockage utilisé</label>
                     <input type="text" id="account-storage" class="zen-input" readonly>
                 </div>
 
-                <button class="btn-primary" onclick="exportLibrary(true)">Exporter la bibliothèque</button>
+                <button class="btn-primary" onclick="exportLibrary(true)">📥 Exporter ma bibliothèque complète</button>
                 <div id="account-status" class="status-msg hidden"></div>
             </div>
         </div>
@@ -2091,7 +2216,7 @@
         const STORE_NAME = 'mediaFiles';
         const PLAYLIST_STORE = 'playlists';
 
-        // === STATE ===
+        // === STATE MANAGEMENT ===
         let library = [];
         let currentTrackIndex = -1;
         let isPlaying = false;
@@ -2099,6 +2224,7 @@
         let isShuffle = false;
         let playbackSpeed = 1.0;
         let audioContext = null;
+        let sourceNode = null;
         let gainNode = null;
         let eqNodes = [];
         let eqValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -2111,19 +2237,23 @@
         let db = null;
         let contextTrackIndex = -1;
 
+        // EQ Frequencies
         const EQ_FREQUENCIES = [32, 64, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
         const EQ_LABELS = ['32Hz', '64Hz', '125Hz', '250Hz', '500Hz', '1kHz', '2kHz', '4kHz', '8kHz', '16kHz'];
 
+        // EQ Presets
         const EQ_PRESETS = {
             flat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             bass: [8, 6, 4, 2, 0, 0, 0, 0, 0, 0],
             treble: [0, 0, 0, 0, 0, 0, 2, 4, 6, 8],
             vocal: [-2, 0, 2, 4, 5, 4, 2, 0, 0, 0],
             rock: [5, 4, 3, 1, 0, 0, 2, 3, 4, 5],
-            jazz: [4, 3, 2, 3, 4, 3, 2, 3, 4, 4]
+            jazz: [4, 3, 2, 3, 4, 3, 2, 3, 4, 4],
+            electronic: [6, 5, 3, 2, 0, 0, 2, 4, 6, 7],
+            classical: [4, 3, 2, 2, 3, 3, 3, 2, 2, 3]
         };
 
-        // === DOM ===
+        // === DOM ELEMENTS ===
         const videoEl = document.getElementById('main-video');
         const playBtn = document.getElementById('play-btn');
         const videoPlayBtn = document.getElementById('video-play-btn');
@@ -2139,7 +2269,7 @@
         const videoContainer = document.getElementById('video-container');
         const contextMenu = document.getElementById('context-menu');
 
-        // === INDEXEDDB ===
+        // === INDEXEDDB SETUP ===
         function initDB() {
             return new Promise((resolve, reject) => {
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -2160,68 +2290,163 @@
                 };
 
                 request.onerror = function(event) {
-                    reject('Database error');
+                    reject('Database error: ' + event.target.errorCode);
                 };
             });
         }
 
         function saveFileToDB(id, file, metadata) {
             return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
                 const transaction = db.transaction([STORE_NAME], 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
-                const request = store.put({ id, file, metadata, timestamp: new Date().toISOString() });
-                request.onsuccess = () => resolve();
-                request.onerror = () => reject('Error saving file');
+
+                const record = {
+                    id: id,
+                    file: file,
+                    metadata: metadata,
+                    timestamp: new Date().toISOString()
+                };
+
+                const request = store.put(record);
+
+                request.onsuccess = function() {
+                    resolve(record);
+                };
+
+                request.onerror = function() {
+                    reject('Error saving file');
+                };
             });
         }
 
-        function getAllFilesFromDB() {
+        function getFileFromDB(id) {
             return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
                 const transaction = db.transaction([STORE_NAME], 'readonly');
                 const store = transaction.objectStore(STORE_NAME);
-                const request = store.getAll();
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject('Error getting files');
+                const request = store.get(id);
+
+                request.onsuccess = function() {
+                    resolve(request.result);
+                };
+
+                request.onerror = function() {
+                    reject('Error getting file');
+                };
             });
         }
 
         function deleteFileFromDB(id) {
             return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
                 const transaction = db.transaction([STORE_NAME], 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
                 const request = store.delete(id);
-                request.onsuccess = () => resolve();
-                request.onerror = () => reject('Error deleting file');
+
+                request.onsuccess = function() {
+                    resolve();
+                };
+
+                request.onerror = function() {
+                    reject('Error deleting file');
+                };
+            });
+        }
+
+        function getAllFilesFromDB() {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAll();
+
+                request.onsuccess = function() {
+                    resolve(request.result);
+                };
+
+                request.onerror = function() {
+                    reject('Error getting all files');
+                };
             });
         }
 
         function savePlaylistToDB(playlist) {
             return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
                 const transaction = db.transaction([PLAYLIST_STORE], 'readwrite');
                 const store = transaction.objectStore(PLAYLIST_STORE);
                 const request = store.put(playlist);
-                request.onsuccess = () => resolve();
-                request.onerror = () => reject('Error saving playlist');
+
+                request.onsuccess = function() {
+                    resolve();
+                };
+
+                request.onerror = function() {
+                    reject('Error saving playlist');
+                };
             });
         }
 
         function getAllPlaylistsFromDB() {
             return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
                 const transaction = db.transaction([PLAYLIST_STORE], 'readonly');
                 const store = transaction.objectStore(PLAYLIST_STORE);
                 const request = store.getAll();
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject('Error getting playlists');
+
+                request.onsuccess = function() {
+                    resolve(request.result);
+                };
+
+                request.onerror = function() {
+                    reject('Error getting playlists');
+                };
             });
         }
 
         function deletePlaylistFromDB(id) {
             return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject('Database not initialized');
+                    return;
+                }
+
                 const transaction = db.transaction([PLAYLIST_STORE], 'readwrite');
                 const store = transaction.objectStore(PLAYLIST_STORE);
                 const request = store.delete(id);
-                request.onsuccess = () => resolve();
-                request.onerror = () => reject('Error deleting playlist');
+
+                request.onsuccess = function() {
+                    resolve();
+                };
+
+                request.onerror = function() {
+                    reject('Error deleting playlist');
+                };
             });
         }
 
@@ -2231,6 +2456,7 @@
                     const used = estimate.usage || 0;
                     const quota = estimate.quota || 1;
                     const percent = (used / quota) * 100;
+
                     document.getElementById('storage-text').textContent = formatBytes(used) + ' / ' + formatBytes(quota);
                     document.getElementById('storage-fill').style.width = Math.min(percent, 100) + '%';
                 });
@@ -2245,7 +2471,7 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // === CRYPTO ===
+        // === CRYPTOGRAPHY FUNCTIONS ===
         function encryptData(data, key) {
             const str = JSON.stringify(data);
             let result = '';
@@ -2266,6 +2492,7 @@
                 }
                 return JSON.parse(result);
             } catch (e) {
+                console.error("Decryption failed", e);
                 return null;
             }
         }
@@ -2284,11 +2511,11 @@
             return hashPassword(username + password + ENCRYPTION_KEY);
         }
 
-        // === LOGIN ===
+        // === LOGIN LOGIC ===
         function handleFileSelect(input) {
             const file = input.files[0];
             if (file) {
-                document.getElementById('file-name-display').textContent = file.name;
+                document.getElementById('file-name-display').textContent = '📁 ' + file.name;
                 document.getElementById('file-name-display').style.color = 'var(--primary)';
             }
         }
@@ -2300,7 +2527,7 @@
             const file = fileInput.files[0];
 
             if (!username) {
-                alert('Veuillez entrer un nom d\'utilisateur');
+                alert("Veuillez entrer un nom d'utilisateur");
                 return;
             }
 
@@ -2327,16 +2554,18 @@
 
                     if (isEncrypted) {
                         data = decryptData(content, userKey);
-                        if (!data) data = decryptData(content, ENCRYPTION_KEY);
                         if (!data) {
-                            alert('Erreur: Fichier crypté invalide');
+                            data = decryptData(content, ENCRYPTION_KEY);
+                        }
+                        if (!data) {
+                            alert("Erreur: Fichier crypté invalide ou mot de passe incorrect.");
                             return;
                         }
                     } else {
                         try {
                             data = JSON.parse(content);
                         } catch (err) {
-                            alert('Erreur: Format JSON invalide');
+                            alert("Erreur: Format JSON invalide.");
                             return;
                         }
                     }
@@ -2345,9 +2574,7 @@
                         library = data.library;
                         if (data.playlists) {
                             playlists = data.playlists;
-                            for (const playlist of playlists) {
-                                await savePlaylistToDB(playlist);
-                            }
+                            await savePlaylistsToDB();
                         }
                         await loadFilesFromDB();
                         initializeApp();
@@ -2356,7 +2583,7 @@
                         await loadFilesFromDB();
                         initializeApp();
                     } else {
-                        alert('Format de données invalide');
+                        alert("Format de données invalide.");
                     }
                 };
                 reader.readAsText(file);
@@ -2380,7 +2607,7 @@
                 });
                 getStorageUsage();
             } catch (e) {
-                console.error('Error loading files:', e);
+                console.error('Error loading files from DB:', e);
             }
         }
 
@@ -2389,7 +2616,17 @@
                 playlists = await getAllPlaylistsFromDB();
                 renderPlaylistList();
             } catch (e) {
-                console.error('Error loading playlists:', e);
+                console.error('Error loading playlists from DB:', e);
+            }
+        }
+
+        async function savePlaylistsToDB() {
+            try {
+                for (const playlist of playlists) {
+                    await savePlaylistToDB(playlist);
+                }
+            } catch (e) {
+                console.error('Error saving playlists:', e);
             }
         }
 
@@ -2401,6 +2638,7 @@
         function checkPasswordStrength(password) {
             const bar = document.getElementById('password-strength-bar');
             let strength = 0;
+
             if (password.length >= 8) strength++;
             if (/[A-Z]/.test(password)) strength++;
             if (/[0-9]/.test(password)) strength++;
@@ -2420,22 +2658,22 @@
             const statusEl = document.getElementById('create-status');
 
             if (!username || !email || !password) {
-                statusEl.textContent = 'Veuillez remplir tous les champs';
-                statusEl.className = 'status-msg status-error';
+                statusEl.textContent = "⚠️ Veuillez remplir tous les champs";
+                statusEl.className = "status-msg status-error";
                 statusEl.classList.remove('hidden');
                 return;
             }
 
             if (password !== confirmPassword) {
-                statusEl.textContent = 'Les mots de passe ne correspondent pas';
-                statusEl.className = 'status-msg status-error';
+                statusEl.textContent = "⚠️ Les mots de passe ne correspondent pas";
+                statusEl.className = "status-msg status-error";
                 statusEl.classList.remove('hidden');
                 return;
             }
 
             if (password.length < 6) {
-                statusEl.textContent = 'Le mot de passe doit contenir au moins 6 caractères';
-                statusEl.className = 'status-msg status-error';
+                statusEl.textContent = "⚠️ Le mot de passe doit contenir au moins 6 caractères";
+                statusEl.className = "status-msg status-error";
                 statusEl.classList.remove('hidden');
                 return;
             }
@@ -2473,8 +2711,8 @@
             a.download = 'zenkari_' + username + '_library.enc';
             a.click();
 
-            statusEl.textContent = 'Compte créé! Bibliothèque téléchargée.';
-            statusEl.className = 'status-msg status-success';
+            statusEl.textContent = "✅ Compte créé! Bibliothèque téléchargée.";
+            statusEl.className = "status-msg status-success";
             statusEl.classList.remove('hidden');
 
             setTimeout(() => {
@@ -2483,7 +2721,7 @@
             }, 2000);
         }
 
-        // === INIT ===
+        // === APP INITIALIZATION ===
         async function initializeApp() {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app-container').style.display = 'grid';
@@ -2511,7 +2749,7 @@
             document.getElementById('login-username').value = '';
             document.getElementById('login-pass').value = '';
             document.getElementById('lib-file').value = '';
-            document.getElementById('file-name-display').textContent = 'Cliquez pour importer (.json ou .enc)';
+            document.getElementById('file-name-display').textContent = '📁 Cliquez pour importer (.json ou .enc)';
 
             videoEl.pause();
             videoEl.src = '';
@@ -2520,12 +2758,12 @@
             document.getElementById('login-screen').style.display = 'flex';
         }
 
-        // === AUDIO ===
+        // === AUDIO ENGINE ===
         async function setupAudioContext() {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             audioContext = new AudioContext();
 
-            const sourceNode = audioContext.createMediaElementSource(videoEl);
+            sourceNode = audioContext.createMediaElementSource(videoEl);
             gainNode = audioContext.createGain();
 
             eqNodes = [];
@@ -2538,7 +2776,8 @@
                 eqNodes.push(eq);
             });
 
-            sourceNode.connect(gainNode);
+            let currentNode = sourceNode;
+            currentNode.connect(gainNode);
             eqNodes.forEach(eq => {
                 gainNode.connect(eq);
                 gainNode = eq;
@@ -2559,15 +2798,15 @@
             videoEl.addEventListener('click', togglePlay);
         }
 
-        // === PLAYER ===
-        async function loadTrack(index) {
+        // === PLAYER CONTROLS ===
+        async function loadTrack(index, playlist = null) {
             if (index < 0 || index >= library.length) return;
 
             currentTrackIndex = index;
             const track = library[index];
 
-            npTitle.textContent = track.title || "Titre inconnu";
-            npArtist.textContent = track.artist || "Artiste inconnu";
+            npTitle.textContent = track.title || "Titre Inconnu";
+            npArtist.textContent = track.artist || "Artiste Inconnu";
 
             if (track.url) {
                 videoEl.src = track.url;
@@ -2618,7 +2857,13 @@
 
         function nextTrack() {
             if (library.length === 0) return;
-            let nextIndex = isShuffle ? Math.floor(Math.random() * library.length) : (currentTrackIndex + 1) % library.length;
+
+            let nextIndex;
+            if (isShuffle) {
+                nextIndex = Math.floor(Math.random() * library.length);
+            } else {
+                nextIndex = (currentTrackIndex + 1) % library.length;
+            }
             loadTrack(nextIndex);
         }
 
@@ -2643,6 +2888,12 @@
             videoEl.currentTime = pos * videoEl.duration;
         }
 
+        function seekVideo(event) {
+            const rect = document.getElementById('video-progress').getBoundingClientRect();
+            const pos = (event.clientX - rect.left) / rect.width;
+            videoEl.currentTime = pos * videoEl.duration;
+        }
+
         function setVolume(val) {
             videoEl.volume = val;
             document.getElementById('video-volume').value = val;
@@ -2655,14 +2906,14 @@
         function toggleLoop() {
             isLoop = !isLoop;
             document.getElementById('btn-loop').classList.toggle('active', isLoop);
-            document.getElementById('loop-status').textContent = isLoop ? 'Oui' : 'Non';
+            document.getElementById('loop-status').textContent = isLoop ? 'On' : 'Off';
             document.getElementById('toggle-loop').classList.toggle('active', isLoop);
         }
 
         function toggleShuffle() {
             isShuffle = !isShuffle;
             document.getElementById('btn-shuffle').classList.toggle('active', isShuffle);
-            document.getElementById('shuffle-status').textContent = isShuffle ? 'Oui' : 'Non';
+            document.getElementById('shuffle-status').textContent = isShuffle ? 'On' : 'Off';
             document.getElementById('toggle-shuffle').classList.toggle('active', isShuffle);
         }
 
@@ -2674,20 +2925,23 @@
             event.target.textContent = playbackSpeed + 'x';
         }
 
-        // === FULLSCREEN ===
+        // === VIDEO FULLSCREEN FUNCTION ===
         function toggleVideoFullscreen() {
             if (!document.fullscreenElement) {
-                videoContainer.requestFullscreen().catch(err => console.log(err));
+                videoContainer.requestFullscreen().catch(err => {
+                    console.log('Fullscreen error:', err);
+                });
             } else {
                 document.exitFullscreen();
             }
+            toggleSettingsMenu();
         }
 
         function toggleSettingsMenu() {
             document.getElementById('video-settings').classList.toggle('active');
         }
 
-        // === SETTINGS ===
+        // === SETTINGS FUNCTIONS ===
         function toggleShuffleSetting() {
             toggleShuffle();
         }
@@ -2707,6 +2961,7 @@
                 const pct = (videoEl.currentTime / videoEl.duration) * 100;
                 progressFill.style.width = pct + '%';
                 videoProgressFill.style.width = pct + '%';
+
                 currTimeEl.textContent = formatTime(videoEl.currentTime);
                 videoCurrTimeEl.textContent = formatTime(videoEl.currentTime);
             }
@@ -2801,8 +3056,8 @@
 
         function saveEqualizer() {
             const statusEl = document.getElementById('eq-status');
-            statusEl.textContent = 'Égaliseur sauvegardé!';
-            statusEl.className = 'status-msg status-success';
+            statusEl.textContent = "✅ Égaliseur sauvegardé!";
+            statusEl.className = "status-msg status-success";
             statusEl.classList.remove('hidden');
             setTimeout(() => {
                 statusEl.classList.add('hidden');
@@ -2810,18 +3065,19 @@
             }, 1500);
         }
 
-        // === PLAYLISTS ===
+        // === PLAYLIST MANAGEMENT ===
         function openCreatePlaylistModal() {
             document.getElementById('create-playlist-modal').style.display = 'flex';
         }
 
         function createPlaylist() {
             const name = document.getElementById('new-playlist-name').value.trim();
+            const desc = document.getElementById('new-playlist-desc').value.trim();
             const statusEl = document.getElementById('create-playlist-status');
 
             if (!name) {
-                statusEl.textContent = 'Veuillez entrer un nom';
-                statusEl.className = 'status-msg status-error';
+                statusEl.textContent = "⚠️ Veuillez entrer un nom";
+                statusEl.className = "status-msg status-error";
                 statusEl.classList.remove('hidden');
                 return;
             }
@@ -2829,6 +3085,7 @@
             const playlist = {
                 id: 'playlist_' + Date.now(),
                 name: name,
+                description: desc,
                 tracks: [],
                 created: new Date().toISOString()
             };
@@ -2837,13 +3094,14 @@
             savePlaylistToDB(playlist);
             renderPlaylistList();
 
-            statusEl.textContent = 'Playlist créée!';
-            statusEl.className = 'status-msg status-success';
+            statusEl.textContent = "✅ Playlist créée!";
+            statusEl.className = "status-msg status-success";
             statusEl.classList.remove('hidden');
 
             setTimeout(() => {
                 closeModal('create-playlist-modal');
                 document.getElementById('new-playlist-name').value = '';
+                document.getElementById('new-playlist-desc').value = '';
                 statusEl.classList.add('hidden');
             }, 1500);
         }
@@ -2852,7 +3110,7 @@
             const container = document.getElementById('playlist-list');
             container.innerHTML = '';
 
-            playlists.forEach(playlist => {
+            playlists.forEach((playlist, index) => {
                 const item = document.createElement('div');
                 item.className = 'playlist-item';
                 if (currentPlaylist && currentPlaylist.id === playlist.id) {
@@ -2865,10 +3123,10 @@
                 };
 
                 item.innerHTML = `
-                    <span>${playlist.name} (${playlist.tracks.length})</span>
+                    <span>📚 ${playlist.name} (${playlist.tracks.length})</span>
                     <div class="playlist-item-actions">
-                        <button class="playlist-item-btn" onclick="editPlaylist('${playlist.id}')">✎</button>
-                        <button class="playlist-item-btn delete" onclick="deletePlaylist('${playlist.id}')">✕</button>
+                        <button class="playlist-item-btn" onclick="editPlaylist('${playlist.id}')">✏️</button>
+                        <button class="playlist-item-btn delete" onclick="deletePlaylist('${playlist.id}')">🗑</button>
                     </div>
                 `;
                 container.appendChild(item);
@@ -2927,7 +3185,7 @@
             playlists.forEach(playlist => {
                 const item = document.createElement('div');
                 item.className = 'playlist-item';
-                item.innerHTML = `<span>${playlist.name}</span>`;
+                item.innerHTML = `<span>📚 ${playlist.name}</span>`;
                 item.onclick = () => {
                     const track = library[trackIndex];
                     if (track && !playlist.tracks.includes(track.id)) {
@@ -2936,8 +3194,8 @@
                         renderPlaylistList();
                         
                         const statusEl = document.getElementById('add-to-playlist-status');
-                        statusEl.textContent = 'Ajouté à ' + playlist.name;
-                        statusEl.className = 'status-msg status-success';
+                        statusEl.textContent = "✅ Ajouté à " + playlist.name;
+                        statusEl.className = "status-msg status-success";
                         statusEl.classList.remove('hidden');
                         setTimeout(() => {
                             statusEl.classList.add('hidden');
@@ -2951,13 +3209,13 @@
             document.getElementById('add-to-playlist-modal').style.display = 'flex';
         }
 
-        // === QUEUE ===
+        // === QUEUE MANAGEMENT ===
         function openQueueModal() {
             const container = document.getElementById('queue-list');
             container.innerHTML = '';
 
             if (queue.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 35px; color: var(--text-muted);">File de lecture vide</div>';
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-muted);">File de lecture vide</div>';
             } else {
                 queue.forEach((trackId, index) => {
                     const track = library.find(t => t.id === trackId);
@@ -3076,7 +3334,7 @@
             getStorageUsage();
         }
 
-        // === UI ===
+        // === UI RENDERING ===
         function renderLibrary() {
             renderTrackList(library);
         }
@@ -3087,10 +3345,10 @@
 
             if (!tracks || tracks.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 55px 20px; color: var(--text-muted);">
-                        <div style="font-size: 44px; margin-bottom: 14px;">♫</div>
-                        <p style="font-size: 15px; margin-bottom: 7px;">Aucune musique</p>
-                        <p style="font-size: 12px;">Cliquez sur + pour ajouter des fichiers</p>
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                        <div style="font-size: 48px; margin-bottom: 14px;">🎵</div>
+                        <p style="font-size: 15px; margin-bottom: 8px;">Aucune musique</p>
+                        <p style="font-size: 12px;">Cliquez sur "+" pour ajouter des fichiers</p>
                     </div>
                 `;
                 return;
@@ -3116,9 +3374,9 @@
 
                 row.innerHTML = `
                     <div class="track-num">${index + 1}</div>
-                    <div class="track-icon">${isVideo ? '▶' : '♫'}</div>
+                    <div class="track-icon">${isVideo ? '🎬' : '♫'}</div>
                     <div class="track-info">
-                        <div class="track-title">${track.title || 'Sans titre'} ${isFavorite ? '♥' : ''}</div>
+                        <div class="track-title">${track.title || 'Sans titre'} ${isFavorite ? '❤️' : ''}</div>
                         <div class="track-artist">${track.artist || 'Inconnu'}</div>
                     </div>
                     <div class="track-album">${track.album || '-'}</div>
@@ -3126,7 +3384,7 @@
                     <div class="track-actions">
                         <button class="track-action-btn" onclick="event.stopPropagation(); addToQueue('${track.id}')">📋</button>
                         <button class="track-action-btn" onclick="event.stopPropagation(); openAddToPlaylistModal(${actualIndex})">📚</button>
-                        <button class="track-action-btn delete" onclick="event.stopPropagation(); deleteTrack(${actualIndex})">✕</button>
+                        <button class="track-action-btn delete" onclick="event.stopPropagation(); deleteTrack(${actualIndex})">🗑</button>
                     </div>
                 `;
                 container.appendChild(row);
@@ -3170,11 +3428,11 @@
             }
         }
 
-        // === DATA ===
+        // === DATA MANAGEMENT ===
         async function addLocalFiles(files) {
             const statusMsg = document.createElement('div');
             statusMsg.className = 'status-msg status-info';
-            statusMsg.textContent = 'Importation...';
+            statusMsg.textContent = 'Importation des fichiers...';
             document.querySelector('.playlist-section').prepend(statusMsg);
 
             for (let i = 0; i < files.length; i++) {
@@ -3185,7 +3443,7 @@
 
                 const metadata = {
                     title: name,
-                    artist: "Fichier local",
+                    artist: "Fichier Local",
                     album: "Import",
                     type: file.type,
                     duration: 0
@@ -3197,7 +3455,7 @@
                     library.push({
                         id: id,
                         title: name,
-                        artist: "Fichier local",
+                        artist: "Fichier Local",
                         album: "Import",
                         url: URL.createObjectURL(file),
                         file: file,
@@ -3212,7 +3470,7 @@
                 }
             }
 
-            statusMsg.textContent = files.length + ' fichier(s) importé(s)';
+            statusMsg.textContent = '✅ ' + files.length + ' fichier(s) importé(s)';
             statusMsg.className = 'status-msg status-success';
             setTimeout(() => statusMsg.remove(), 3000);
 
@@ -3279,10 +3537,10 @@
                 a.click();
 
                 progressFill.style.width = '100%';
-                progressText.textContent = 'Export terminé!';
+                progressText.textContent = '✅ Terminé!';
 
                 const statusEl = document.getElementById('save-status');
-                statusEl.textContent = 'Exportation ' + (encrypt ? 'cryptée' : 'standard') + ' réussie!';
+                statusEl.textContent = '✅ Exportation ' + (encrypt ? 'Cryptée' : 'Standard') + ' réussie!';
                 statusEl.className = "status-msg status-success";
                 statusEl.classList.remove('hidden');
 
@@ -3294,7 +3552,7 @@
 
             } catch (e) {
                 console.error('Export error:', e);
-                progressText.textContent = 'Erreur d\'export';
+                progressText.textContent = '❌ Erreur';
                 progressEl.classList.add('hidden');
             }
         }
